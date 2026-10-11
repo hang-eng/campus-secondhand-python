@@ -1,0 +1,258 @@
+{#
+    商城页外壳：首页 / 搜索 / 分类 / 商品详情。
+
+    包含三样所有商城页共有的东西：
+      1. 顶部导航条（搜索框、发布按钮、消息红点、用户名下拉）
+      2. 左侧分类导航条
+      3. 三个弹层 —— 登录、注册、改用户名
+
+    子页面用 {% block content %} 填右侧内容区。
+
+    原版里这些是逐页复制的，而且夹着大量 Angular 属性
+    （ng-controller / ng-class / ng-click）。全站没有 ng-app，
+    Angular 从来没启动过，那些属性和写死的 0 一样是死的，这里全部去掉。
+#}
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ static('css/index.css') }}" />
+<script src="{{ static('js/jquery-3.2.1.min.js') }}"></script>
+<script src="{{ static('js/materialize.min.js') }}"></script>
+<link rel="stylesheet" href="{{ static('css/materialize-icon.css') }}" />
+<link rel="stylesheet" href="{{ static('css/user.css') }}" />
+<link rel="stylesheet" href="{{ static('css/campus.css') }}?v=20261008b" />
+{% endblock %}
+
+{% block body %}
+<div class="header stark-components navbar-fixed">
+    <nav class="white nav1">
+        <div class="nav-wrapper">
+            <a href="{{ url('goods_home') }}" class="logo">
+                <img class="whut-emblem" src="{{ static('img/whut_emblem.png') }}" alt="武汉理工大学" />
+                <em class="em1">
+                    <span style="color: #00489a;">武</span>
+                    <span style="color: #fac640;">汉</span>
+                    <span style="color: #00489a;">理</span>
+                    <span style="color: #fac640;">工</span>
+                </em>
+                <em class="em2">二手交易平台</em>
+            </a>
+            {#
+                搜索区。
+
+                拆成三个块，是因为「搜索页」和「分类页」在这一小块上不一样：
+                  - 搜索页的搜索框里要藏着当前价格区间（换关键词时价格别丢）
+                  - 分类页不需要藏，它的价格区间是分类内的
+                两边都要在搜索框右边多放一个「价格区间」小表单，
+                但 action 一个是 /goods/search、一个是 /goods/catelog/{id}。
+
+                所以：search_hidden 是 form 内部、search_extras 是 form 之后的兄弟。
+                原版这些是逐页复制的，改一处要改两遍。
+            #}
+            <div class="nav-wrapper search-bar">
+                <form action="{{ url('goods_search') }}">
+                    {% block search_hidden %}{% endblock %}
+                    <div class="input-field">
+                        <input id="search" name="str" value="{{ search|default('', true) }}"
+                               placeholder="搜点什么吧..." style="height: 40px;" />
+                        <label for="search" class="active"><i class="iconfont"></i></label>
+                    </div>
+                </form>
+                {% block search_extras %}{% endblock %}
+            </div>
+            {% if cur_user %}
+            <ul class="right">
+                <li class="publish-btn">
+                    <button data-position="bottom" class="red lighten-1 waves-effect waves-light btn">
+                        <a href="{{ url('goods_publish') }}">我要发布</a>
+                    </button>
+                </li>
+                <li><a href="{{ url('user_goods') }}">我发布的商品</a></li>
+                <li><a href="{{ url('user_home') }}">{{ cur_user.username }}</a></li>
+                {#
+                    右上角消息入口。原版这里是 Angular 的 showNotificationBox()，
+                    点了没反应、红点里的 0 也是写死的。现在指向消息中心，
+                    数字由 context processor 的 unreadMsgCount 渲染。
+                #}
+                <li class="notification">
+                    <a href="{{ url('chat_message') }}?tab=chat" title="消息中心">
+                        <i class="iconfont"></i>
+                        {% if unreadMsgCount and unreadMsgCount > 0 %}
+                        <div class="notification-amount red lighten-1">{{ unreadMsgCount }}</div>
+                        {% endif %}
+                    </a>
+                </li>
+                <li class="changemore">
+                    <a onclick="changeMoreVertShow()"><i class="iconfont"></i></a>
+                    <div class="more-vert">
+                        <ul class="dropdown-content">
+                            <li><a href="{{ url('user_home') }}">个人中心</a></li>
+                            <li><a href="{{ url('chat_message') }}">消息</a></li>
+                            <li><a onclick="ChangeName()">更改用户名</a></li>
+                            <li><a href="{{ url('user_logout') }}">退出登录</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+            {% else %}
+            <ul class="right">
+                <li class="publish-btn">
+                    <button onclick="showLogin()" data-position="bottom" data-delay="50"
+                            data-tooltip="需要先登录哦！" class="red lighten-1 waves-effect waves-light btn">
+                        我要发布</button>
+                </li>
+                <li><a onclick="showLogin()">登录</a></li>
+                <li><a onclick="showSignup()">注册</a></li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+</div>
+
+{#
+    左侧分类导航。active_catelog 由各页面视图传入
+    （原版靠 Angular 的 ng-class 算，而全站没有 ng-app，从来没生效过）。
+
+    包成 block 是因为商品详情页**没有**这条侧栏（原版的 detailGoods.html
+    里就没有，它是从上到下一条通栏的），那里把这块覆写成空。
+#}
+{% block sidebar %}
+{% set nav_items = [
+    (1, '闲置数码', 'digital'),
+    (2, '校园代步', 'ride'),
+    (3, '电器日用', 'commodity'),
+    (4, '图书教材', 'book'),
+    (5, '美妆衣物', 'makeup'),
+    (6, '运动棋牌', 'sport'),
+    (7, '周边其他', 'smallthing'),
+] %}
+<div class="sidebar stark-components">
+    <li>
+        <a href="{{ url('goods_home') }}" class="home">
+            <img src="{{ static('img/home.png') }}" /><em>首页</em>
+        </a>
+    </li>
+    <li{% if active_catelog is none %} class="active"{% endif %}>
+        <a href="{{ url('goods_home') }}" class="index">
+            <img src="{{ static('img/index.png') }}" /><em>最新发布</em>
+        </a>
+    </li>
+    {% for cid, cname, cclass in nav_items %}
+    <li{% if active_catelog == cid %} class="active"{% endif %}>
+        <a href="{{ url('goods_catelog', id=cid) }}" class="{{ cclass }}">
+            <img src="{{ static('img/' ~ cclass ~ '.png') }}" /><em>{{ cname }}</em>
+        </a>
+    </li>
+    {% endfor %}
+    <div class="info">
+        <a href="" target="_blank">关于我们</a><em>-</em>
+        <a href="">联系我们</a>
+        <p>©2026 武汉理工大学</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{# ================================================================ 弹层 #}
+
+{# 登录弹层。loginError 非空时自动展开（原版 th:style 的三元） #}
+<div id="login-show" class="login stark-components"
+     {% if loginError %}style="display: block;"{% endif %}>
+    <div class="publish-box z-depth-4">
+        <div class="row">
+            <a onclick="showLogin()"><div class="col s12 title"></div></a>
+            <form action="{{ url('user_login') }}" method="post">
+                {{ csrf_input }}
+                <div class="input-field col s12">
+                    <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$"
+                           value="{{ loginPhone|default('', true) }}" class="validate" />
+                    <label>手机</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" name="password" required="required" class="validate" />
+                    <label>密码</label>
+                    <a class="forget-btn">忘记密码？</a>
+                </div>
+                {% if loginError %}<div class="login-error">{{ loginError }}</div>{% endif %}
+                <button type="submit" class="waves-effect waves-light btn login-btn red lighten-1">
+                    <i class="iconfont left"></i><em>登录</em>
+                </button>
+                <div class="col s12 signup-area">
+                    <em>没有账号？赶快</em>
+                    <a onclick="showSignup()" class="signup-btn">注册</a>
+                    <em>吧！</em>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{# 注册弹层 #}
+<div id="signup-show" class="signup stark-components">
+    <div class="publish-box z-depth-4">
+        <div class="row">
+            <a onclick="showSignup()"><div class="col s12 title"></div></a>
+            <form action="{{ url('user_add') }}" method="post">
+                {{ csrf_input }}
+                <div class="input-field col s12">
+                    <input type="text" name="username" required="required" class="validate" />
+                    <label>昵称</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="text" name="phone" required="required" pattern="^1[0-9]{10}$" class="validate" />
+                    <label>手机</label>
+                </div>
+                <div class="input-field col s12">
+                    <input type="password" name="password" required="required" class="validate" />
+                    <label>密码</label>
+                </div>
+                <div class="col s12">
+                    <button type="submit" class="waves-effect waves-light btn verify-btn red lighten-1">
+                        <i class="iconfont left"></i><em>点击注册</em>
+                    </button>
+                </div>
+                <div class="login-area col s12">
+                    <em>已有账号？去</em><a onclick="showLogin()">登录</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{# 改用户名弹层 #}
+<div id="changeName" class="change-name stark-components">
+    <div class="publish-box z-depth-4">
+        <div class="row">
+            <div class="col s12 title"><h1>修改用户名</h1></div>
+            <form action="{{ url('user_change_name') }}" method="post">
+                {{ csrf_input }}
+                <div class="input-field col s12">
+                    <input type="text" name="username" required="required" class="validate" />
+                    <label>修改用户名</label>
+                </div>
+                <div class="col s12">
+                    <button class="waves-effect waves-light btn publish-btn red lighten-1">
+                        <i class="iconfont left"></i><em>确认</em>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 三个弹层的显隐。原版每个商城页都复制一份这段，现在只在这里写一次。
+    // 逻辑照抄原版：打开一个之前先关掉另一个，同一个再点则收起。
+    function showLogin() {
+        if ($("#signup-show").css("display") === "block") { $("#signup-show").css("display", "none"); }
+        $("#login-show").toggle();
+    }
+    function showSignup() {
+        if ($("#login-show").css("display") === "block") { $("#login-show").css("display", "none"); }
+        $("#signup-show").toggle();
+    }
+    function ChangeName() { $("#changeName").toggle(); }
+    function changeMoreVertShow() { $(".more-vert").toggle(); }
+</script>
+{% endblock %}

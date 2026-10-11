@@ -1,0 +1,2680 @@
+@charset "UTF-8";
+/* ==========================================================================
+   武汉理工大学二手交易平台 —— 全站皮肤 campus.css
+   --------------------------------------------------------------------------
+   作用：统一全站底色 + 头部校徽品牌标识
+   原则：本文件在原模板样式之后加载，只覆盖「背景」与「品牌外观」，
+        不改动任何布局结构、组件样式与后端逻辑。
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. 全站页面底色：校园实景照（柔化版）+ 阳光渐变蒙版
+   -------------------------------------------------------------------------- */
+html {
+    background-color: #eaf3ff;
+}
+
+body {
+    background-color: #eaf3ff;
+    /* 模板里 index/detail.css 给 body 设了 height:100%（父级无高度 -> 计算结果为 auto），
+       内容少时（如搜索结果只有一条）body 盒子撑不满视口，
+       fixed 背景只按盒子绘制，页面下半截会露出纯色。用 min-height 兜底。 */
+    min-height: 100vh;
+    background-image:
+        /* 左上角暖阳光晕，营造阳光青春感 */
+        radial-gradient(circle at 14% 4%,
+            rgba(250, 198, 64, 0.30) 0%,
+            rgba(250, 198, 64, 0.00) 42%),
+        /* 白蓝渐变蒙版：压住照片，保证任何页面上的文字都清晰可读 */
+        linear-gradient(158deg,
+            rgba(255, 253, 246, 0.62) 0%,
+            rgba(242, 249, 255, 0.60) 48%,
+            rgba(224, 238, 255, 0.70) 100%),
+        /* 校园实景（已柔化，只作氛围） */
+        url(../img/campus_bg_soft.jpg);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: center top, center center, center center;
+    background-size: 100% 100%, cover, cover;
+    background-attachment: fixed, fixed, fixed;
+}
+
+/* --------------------------------------------------------------------------
+   2. 前台头部品牌：武汉理工大学校徽 + 站名
+   -------------------------------------------------------------------------- */
+
+/* 原模板给 .logo 挂了旧校的标题图，这里关掉，改用真实校徽图片 */
+.logo,
+div.notice.stark-components .publish-box .logo {
+    background: none !important;
+    height: auto;
+}
+
+.logo .whut-emblem {
+    width: 46px;
+    height: 46px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* 站名配色向校徽靠拢：武理工蓝 #00489a + 校徽金 #fac640
+   --------------------------------------------------------------------------
+   注意选择器写法：原模板 index.css 里有
+       .header.stark-components .logo { margin-left:60px; font-size:28px }
+   是三个 class 的特异性(0,3,0)，光写 .logo(0,1,0) 根本压不住它 ——
+   之前这里写成 .logo，导致下面所有断点的 font-size 全是死代码，
+   站名在 1366/1280 这些笔记本宽度下一直不缩，才会和搜索框撞上。
+   所以这里必须同样带上 .header.stark-components 前缀。 */
+.header.stark-components .logo {
+    font-size: 26px;
+    margin-left: 46px;
+    white-space: nowrap;
+}
+
+.header.stark-components .logo .em1 {
+    letter-spacing: 1px;
+}
+
+.header.stark-components .logo .em2 {
+    color: #1c2b3a;
+}
+
+/* 窄屏逐级收站名，腾出中间给搜索框 + 价格区间 */
+@media (max-width: 1600px) {
+    .header.stark-components .logo { font-size: 23px; margin-left: 30px; }
+    .header.stark-components .logo .whut-emblem { width: 42px; height: 42px; margin-right: 8px; }
+}
+
+@media (max-width: 1400px) {
+    .header.stark-components .logo { font-size: 20px; margin-left: 22px; }
+    .header.stark-components .logo .whut-emblem { width: 36px; height: 36px; margin-right: 7px; }
+}
+
+@media (max-width: 1300px) {
+    .header.stark-components .logo { font-size: 18px; margin-left: 16px; }
+    .header.stark-components .logo .whut-emblem { width: 32px; height: 32px; margin-right: 6px; }
+}
+
+/* --------------------------------------------------------------------------
+   3. 首页 banner：换成新校园实景照，并给文案加半透明底板保证可读
+   -------------------------------------------------------------------------- */
+.bannerimg {
+    background: url(../img/campus_bg.jpg) center center / cover no-repeat !important;
+}
+
+/* 原宽度 530px 放不下加长后的校名，文字会折行错位；加宽并收紧字号 */
+.bannerimg .bannerul {
+    box-sizing: border-box;
+    width: 730px;
+    margin: 24px 0 0 16px !important;
+    padding: 16px 20px;
+    font-size: 17px;
+    line-height: 34px;
+    background: rgba(255, 255, 255, 0.76);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 72, 154, 0.10);
+}
+
+/* 原模板让第 2/6 行额外右移 40px 做错落效果，现在文案变长会顶出面板，取消 */
+.bannerul .text2,
+.bannerul .text6 {
+    float: none;
+    margin-left: 0;
+}
+
+/* 原模板给每行加了 1s/3s/5s…11s 延迟的淡入动画（backwards 填充），
+   全部显示完要 13 秒，期间欢迎语整段是透明的。这里改为静态显示：
+   配合 padding 的滑入位移一并归零，文案始终完整可读。 */
+.bannerul p {
+    -webkit-animation: none !important;
+    animation: none !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. 后台控制台：校徽尺寸，与导航栏文字对齐
+   -------------------------------------------------------------------------- */
+.navbar-brand .whut-emblem {
+    width: 32px;
+    height: 32px;
+    margin-top: -6px;
+    vertical-align: middle;
+}
+
+/* --------------------------------------------------------------------------
+   5. 页脚版权信息随主题走
+   -------------------------------------------------------------------------- */
+.info {
+    color: #6b7c93;
+}
+
+/* --------------------------------------------------------------------------
+   6. 搜索框旁的价格区间筛选（搜索结果页 / 分类结果页）
+   --------------------------------------------------------------------------
+   原样式给 .search-bar 定死 300px、靠 margin-left:-150px 居中。要塞进
+   「搜索框 + 价格区间 + 两个按钮」，得改成宽度自适应并用 transform 居中，
+   否则价格控件会溢出到右侧菜单上。
+   -------------------------------------------------------------------------- */
+.header.stark-components .search-bar {
+    width: auto;
+    margin-left: 0;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* 搜索输入框本身收窄一点，给价格控件腾地方（原来是 300px 独占） */
+.header.stark-components .search-bar > form:first-child {
+    width: 230px;
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+/*
+    关键：光给 form 定宽没用。materialize 的 input 没写 width，宽度由浏览器默认
+    size 决定（实测恒定 225px），外层怎么改都约束不住它，media query 也就形同虚设。
+    这里把 .input-field 和 input 都拉到 100%，让 form 的宽度真正说了算。
+*/
+.header.stark-components .search-bar .input-field,
+.header.stark-components .search-bar .input-field input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.price-filter {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    margin-left: 14px;
+}
+
+.price-filter .pf-label {
+    font-size: 14px;
+    color: #1c2b3a;
+    margin-right: 7px;
+}
+
+.price-filter .pf-input {
+    width: 70px;
+    height: 34px;
+    line-height: 34px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    font-size: 14px;
+    color: #1c2b3a;
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid #c3d5ea;
+    border-radius: 6px;
+    outline: none;
+    /* 覆盖 nav .input-field input 的 height:100% / padding-left:2rem */
+    margin: 0;
+}
+
+.price-filter .pf-input:focus {
+    border-color: #00489a;
+    box-shadow: 0 0 0 2px rgba(0, 72, 154, 0.12);
+}
+
+.price-filter .pf-input::-webkit-input-placeholder { color: #9aabbf; }
+.price-filter .pf-input::placeholder { color: #9aabbf; }
+
+/* 去掉 type=number 自带的上下箭头，34px 高的框里塞不下 */
+.price-filter .pf-input::-webkit-outer-spin-button,
+.price-filter .pf-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.price-filter .pf-input {
+    -moz-appearance: textfield;
+}
+
+.price-filter .pf-sep {
+    color: #8fa3b8;
+    margin: 0 6px;
+}
+
+.price-filter .pf-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 34px;
+    line-height: 32px;
+    padding: 0 14px;
+    margin-left: 8px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+.price-filter .pf-ok {
+    color: #fff;
+    background: #00489a;
+    border-color: #00489a;
+}
+.price-filter .pf-ok:hover {
+    color: #fff;
+    background: #0060c8;
+    border-color: #0060c8;
+}
+
+.price-filter .pf-reset {
+    color: #00489a;
+    background: #fff;
+    border-color: #c3d5ea;
+}
+.price-filter .pf-reset:hover {
+    color: #00489a;
+    background: #eef5ff;
+}
+
+/* 窄屏逐级收缩，优先级：先收窄输入框，再收按钮内边距，避免压到右侧菜单。
+   「价格」这个标签一直保留 —— 站名修好收缩后空间够用，去掉标签反而让人
+   看不懂旁边那对「100 — 700」是干嘛的。 */
+@media (max-width: 1600px) {
+    .price-filter { margin-left: 10px; }
+    .price-filter .pf-input { width: 62px; }
+    .header.stark-components .search-bar > form:first-child { width: 210px; }
+}
+
+@media (max-width: 1360px) {
+    .price-filter .pf-input { width: 54px; padding: 0 5px; }
+    .price-filter .pf-btn { padding: 0 9px; margin-left: 5px; }
+    .header.stark-components .search-bar > form:first-child { width: 175px; }
+}
+
+@media (max-width: 1180px) {
+    .header.stark-components .search-bar > form:first-child { width: 145px; }
+    .price-filter .pf-input { width: 48px; }
+    .price-filter .pf-btn { padding: 0 7px; }
+}
+
+/* --------------------------------------------------------------------------
+   7. 结果概览 / 价格提示 / 空结果
+   -------------------------------------------------------------------------- */
+.result-summary {
+    margin: 4px 0 14px 6px;
+    font-size: 14px;
+    color: #6b7c93;
+}
+
+.result-summary b {
+    color: #00489a;
+    font-weight: 600;
+}
+
+.result-summary .rs-filter {
+    margin-left: 6px;
+}
+
+.price-warn {
+    margin: 4px 0 12px 6px;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #8a5a00;
+    background: #fff6e0;
+    border: 1px solid #f3d79a;
+    border-radius: 6px;
+}
+
+.empty-hint {
+    padding: 46px 0 60px;
+    text-align: center;
+    color: #7b8ca0;
+}
+
+.empty-hint p {
+    font-size: 17px;
+    margin: 0 0 8px;
+}
+
+.empty-hint .eh-sub {
+    font-size: 14px;
+    color: #9aabbf;
+    margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. 商品卡片的「已售出」角标 / 「标记已售出」按钮 / 已售出后的变暗
+   --------------------------------------------------------------------------
+   这一节原来放的是「左下角悬浮入口：我买到的 / 我卖出的」，那两个功能按要求
+   删掉了，位置让给右下角的智能导购机器人（见文件最后一节）。
+
+   角标的位置由 fragments/soldBadge.html 里的 .sold-slot 决定，用绝对定位钉在
+   卡片右上角。定位锚点借的是各卡片自己的容器：
+     goods/ 三个页面  -> .card    （Materialize 基础样式里就是 relative）
+     我的闲置         -> .story   （userhome.css 里就是 relative）
+     资料页           -> .pf-good （原本不是，本节末尾补了一条，否则角标会飞到页面根）
+   注意 .item-wrapper 在本项目里没有任何 CSS，是 static，不能当锚点。
+
+   放右上角而不是左上角：我的闲置那张卡的左上角被 a.head_img 那个 left:-30px
+   探出卡片外缘的圆形头像占着，而且它 z-index 是 2。
+   -------------------------------------------------------------------------- */
+.sold-slot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+/* 「已售出」角标本体。.sold-chip（标记按钮）共用外观，所以选择器写在一起 */
+.sold-badge,
+.sold-chip {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 10px;
+    border: 0;
+    border-radius: 0 4px 0 10px;
+    font-family: inherit;
+    font-size: 12px;
+    line-height: 1.3;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: default;
+    -webkit-transition: background .16s ease, color .16s ease;
+    transition: background .16s ease, color .16s ease;
+}
+
+/* 已售出：深色实底，一眼看得出「这件没了」 */
+.sold-badge {
+    color: #fff;
+    background: rgba(38, 50, 66, 0.88);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
+}
+
+/* 发布人看到的是「已售出 · 恢复」，这个是可点的，给出手感 */
+.sold-badge-mine {
+    cursor: pointer;
+}
+.sold-badge-mine:hover {
+    background: #00489a;
+}
+
+/* 在售 + 是发布人时那个「标记已售出」的小按钮：描边不抢眼，鼠标扫过卡片才明显 */
+.sold-chip {
+    color: #5a6b80;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: inset 0 0 0 1px rgba(90, 107, 128, 0.45);
+    cursor: pointer;
+}
+.sold-chip:hover {
+    color: #fff;
+    background: #00489a;
+    box-shadow: inset 0 0 0 1px #00489a;
+}
+
+/* 详情页主图上的那条绶带，比卡片角标大一号 */
+.sold-ribbon {
+    position: absolute;
+    top: 16px;
+    right: -6px;
+    z-index: 5;
+    padding: 7px 18px;
+    color: #fff;
+    background: rgba(38, 50, 66, 0.9);
+    font-size: 16px;
+    letter-spacing: 2px;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+/* 「该商品已售出，无法再联系卖家 / 发表评论」这类说明文字 */
+.sold-hint {
+    display: inline-block;
+    margin: 8px 0 0;
+    font-style: normal;
+    font-size: 14px;
+    color: #8b98a8;
+}
+
+/* --------------------------------------------------------------------------
+   已售出后的「变暗」。
+   图片走灰度 + 压暗（filter 比 opacity 更能体现「这件东西已经不属于货架了」），
+   文字只压透明度，不然读不清。
+   -------------------------------------------------------------------------- */
+.is-sold .card-image img,
+.is-sold .box_content img,
+.is-sold .pf-good-img img,
+.is-sold .slider ul.slides img {
+    -webkit-filter: grayscale(92%) brightness(0.72);
+    filter: grayscale(92%) brightness(0.72);
+}
+
+.is-sold .card-content,
+.is-sold .pf-good-name,
+.is-sold .pf-good-price,
+.is-sold .story .name,
+.is-sold .story .text,
+.is-sold .item-name,
+.is-sold .item-price {
+    opacity: 0.5;
+}
+
+/* 角标本身不跟着变暗，否则「已售出」四个字反而看不清了 */
+.is-sold .sold-slot {
+    opacity: 1;
+}
+
+/* .pf-good 原本没有定位，加了角标就得补上，否则绝对定位会飞到页面根去 */
+.pf-good {
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   9. 用户中心顶栏 logo 修复
+   --------------------------------------------------------------------------
+   背景：userhome.css 里 `#home_header .logo` 用的是旧校的
+   `gdufe_shop_logo.png`（广财大商城 logo）。本文件开头为了换掉头部旧校标题图，
+   写了一条 `.logo { background:none !important; height:auto }`，把用户中心这个
+   logo 一起误伤了 —— 结果是 /user/allGoods、/user/basic 这些页面左上角的站名
+   整块空白，那个回首页的链接也跟着变得点不到。
+   这里单独给它补回来：背景换成武理工校徽，站名用 ::after 补，纯 CSS 解决，
+   user/ 下所有共用这套头部（#home_header）的模板一次生效。
+   注意 height 必须带 !important，否则压不过开头那条 `.logo{height:auto!important}`。
+   -------------------------------------------------------------------------- */
+#home_header .logo {
+    background: none !important;
+    height: 65px !important;
+    width: auto;
+    line-height: 65px;
+    float: left;
+    margin: 2px 0 0 26px;
+    padding-left: 56px;
+    position: relative;
+    letter-spacing: 0;
+    font-size: 20px;
+    color: #1c2b3a;
+}
+
+#home_header .logo::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 44px;
+    height: 44px;
+    margin-top: -22px;
+    background: url(../img/whut_emblem.png) center center / contain no-repeat;
+}
+
+#home_header .logo::after {
+    content: "武汉理工大学二手交易平台";
+    color: #00489a;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   11. 用户中心底部留白
+   --------------------------------------------------------------------------
+   #cover 是用户中心那块浅灰底（userhome.css 给了 min-height:630px），
+   模板里还各自写死了内联 style="min-height:639px"。内容少的时候（比如刚建好的
+   "我买到的"，或者闲置为空的"我的闲置"），灰底到 639px 就断了，下面直接露出
+   全站底图，看着像页面没渲染完。
+   这里拉满视口高：内容比一屏高时 #cover 会被自然撑开，不受影响。
+   必须带 !important —— 内联样式的优先级高于样式表里任何选择器。
+   -------------------------------------------------------------------------- */
+#cover {
+    min-height: 100vh !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. 登录 / 注册弹框：顶部旧校横幅 -> 红色关闭叉
+   --------------------------------------------------------------------------
+   原模板给这两个弹框的 .title 贴了一张 100px 高的 gdufe_title.png，
+   内容就是旧校的「广财大二手工坊 / gdufe.market」横幅 —— 换肤时漏掉了，
+   一直还在显示。而且这个 .title 外面套着
+       <a th:onclick="'showLogin()'"><div class="col s12 title"></div></a>
+   也就是说它同时充当「点这里关闭」的按钮，可整块偏白、几乎看不出能点。
+   所以这里把横幅去掉，改成一个明确的红色圆形叉。
+
+   位置说明：原本担心 .title 外面那层 materialize 负边距行
+   （.row 左右各 -12px）会让绝对定位的 right 跑到弹框外面去，
+   实测这页没有这个偏移，right 就是相对弹框右内边算的。
+   现在 right:11px / top:9px，量出来叉距右边和顶部各约 11px、9px，看着是齐的。
+   -------------------------------------------------------------------------- */
+div.login.stark-components .publish-box .title,
+div.signup.stark-components .publish-box .title {
+    background: none !important;
+    height: 46px !important;
+    position: relative;
+}
+
+div.login.stark-components .publish-box .title::after,
+div.signup.stark-components .publish-box .title::after {
+    content: "×";
+    position: absolute;
+    right: 11px;
+    top: 9px;
+    box-sizing: border-box;
+    width: 30px;
+    height: 30px;
+    line-height: 28px;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    color: #fff;
+    background: #e53935;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(229, 57, 53, 0.35);
+    transition: background .15s ease;
+}
+
+/* 鼠标移到 .title（即外层那个 <a>）上时加深，提示这里可以点 */
+div.login.stark-components .publish-box .title:hover::after,
+div.signup.stark-components .publish-box .title:hover::after {
+    background: #c62828;
+}
+
+/* --------------------------------------------------------------------------
+   13. 消息中心的「系统通知」列表（原 /user/notice，现 /user/message?tab=notice）
+   --------------------------------------------------------------------------
+   和消息中心、关注列表同一套外壳（#user_content / .share / .share_content，
+   550px 窄栏），所以选择器前缀保持一致。
+   （这套外壳最早是给已删掉的「我买到的」写的，那个页面删了但外壳还在用。）
+   注意 ul 默认有 40px 的 padding-left，必须清掉，否则整列会往右掉。
+   -------------------------------------------------------------------------- */
+
+/* 侧栏「我的消息」后面的未读红点。
+   userhome.css 里那条规则写的是
+       #user_nav .home_nav ul li strong { ... display:block; ... display:none }
+   —— 同一个花括号里 display 写了两次，后面的 none 把前面的 block 覆盖掉了，
+   那个红点一直是隐藏的（原模板应该是留给 JS 去改 display 的，但 JS 里没有）。
+   这里用 :empty 区分：有内容的才显示，其余 4 个空 <strong></strong> 继续隐藏，
+   否则会平白多出 4 个红点。campus.css 在 userhome.css 之后加载，
+   同特异性的规则以后者为准，所以不用 !important。 */
+#user_nav .home_nav ul li strong {
+    display: block;
+}
+
+#user_nav .home_nav ul li strong:empty {
+    display: none;
+}
+
+#user_content .share .share_content .uc-title .uc-sub {
+    font-size: 13px;
+    font-weight: 400;
+    color: #e53935;
+}
+
+#user_content .share .share_content .nc-bar {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+#user_content .share .share_content .nc-total {
+    font-size: 13px;
+    color: #7b8ca0;
+}
+
+#user_content .share .share_content .nc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#user_content .share .share_content .nc-item {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+    width: 550px;
+    margin-bottom: 12px;
+    padding: 16px 18px;
+    background: #fff;
+    /* 左侧那一条留给"未读"的蓝色标记。默认透明而不是不写，
+       这样已读/未读切换时整块位置不会左右跳。 */
+    border: 1px solid #e8eef7;
+    border-left: 3px solid transparent;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 72, 154, 0.05);
+}
+
+#user_content .share .share_content .nc-item.nc-unread {
+    border-left-color: #00489a;
+    background: #f7fbff;
+}
+
+#user_content .share .share_content .nc-dot {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    margin: 7px 10px 0 0;
+    border-radius: 50%;
+    background: #d6e0ec;
+}
+
+#user_content .share .share_content .nc-item.nc-unread .nc-dot {
+    background: #e53935;
+}
+
+#user_content .share .share_content .nc-main {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#user_content .share .share_content .nc-text {
+    margin: 0 0 6px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #4a5b6e;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+#user_content .share .share_content .nc-unread .nc-text {
+    color: #1c2b3a;
+    font-weight: 600;
+}
+
+#user_content .share .share_content .nc-time {
+    margin: 0;
+    font-size: 12px;
+    color: #9aabbf;
+}
+
+#user_content .share .share_content .nc-act {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 10px;
+}
+
+#user_content .share .share_content .nc-btn,
+#user_content .share .share_content .nc-readall {
+    box-sizing: border-box;
+    height: 28px;
+    padding: 0 12px;
+    font-size: 13px;
+    color: #00489a;
+    background: #fff;
+    border: 1px solid #c3d5ea;
+    border-radius: 14px;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-transition: background .15s ease;
+    transition: background .15s ease;
+}
+
+#user_content .share .share_content .nc-btn:hover,
+#user_content .share .share_content .nc-readall:hover {
+    background: #eef5ff;
+}
+
+#user_content .share .share_content .nc-done {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    margin-left: 10px;
+    font-size: 12px;
+    color: #b9c6d6;
+}
+
+/* --------------------------------------------------------------------------
+   14. 关注列表（/user/follow）
+   -------------------------------------------------------------------------- */
+#user_content .share .share_content .fl-tabs {
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 14px;
+}
+
+#user_content .share .share_content .fl-tab {
+    box-sizing: border-box;
+    height: 34px;
+    line-height: 32px;
+    padding: 0 18px;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #5a6b7e;
+    background: #fff;
+    border: 1px solid #dbe5f0;
+    border-radius: 17px;
+    text-decoration: none;
+    -webkit-transition: color .15s ease, border-color .15s ease, background .15s ease;
+    transition: color .15s ease, border-color .15s ease, background .15s ease;
+}
+
+#user_content .share .share_content .fl-tab:hover {
+    color: #00489a;
+    border-color: #00489a;
+}
+
+#user_content .share .share_content .fl-tab.fl-on {
+    color: #fff;
+    background: #00489a;
+    border-color: #00489a;
+}
+
+#user_content .share .share_content .fl-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#user_content .share .share_content .fl-item {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 550px;
+    margin-bottom: 12px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1px solid #e8eef7;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 72, 154, 0.05);
+}
+
+#user_content .share .share_content .fl-avatar {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+#user_content .share .share_content .fl-info {
+    -webkit-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-right: 10px;
+}
+
+#user_content .share .share_content .fl-name {
+    margin: 0 0 3px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1c2b3a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+#user_content .share .share_content .fl-meta {
+    margin: 0;
+    font-size: 12px;
+    color: #9aabbf;
+}
+
+#user_content .share .share_content .fl-btn {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    height: 30px;
+    padding: 0 14px;
+    font-size: 13px;
+    color: #fff;
+    background: #00489a;
+    border: 1px solid #00489a;
+    border-radius: 15px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#user_content .share .share_content .fl-btn:hover {
+    background: #0060c8;
+    border-color: #0060c8;
+}
+
+#user_content .share .share_content .fl-btn-off {
+    color: #7b8ca0;
+    background: #fff;
+    border-color: #dbe5f0;
+}
+
+#user_content .share .share_content .fl-btn-off:hover {
+    color: #e53935;
+    background: #fff;
+    border-color: #f0b4b2;
+}
+
+/* --------------------------------------------------------------------------
+   15. 商品详情页卖家信息区的「关注」按钮
+   --------------------------------------------------------------------------
+   插在 .item-contact 里最后一个属性行下面。注意 detail.css 有
+       .detail-box.stark-components .item-contact > div { overflow:hidden; padding:10px }
+   这条会给 .follow-row 自动带上 10px 内边距（它是直接子 div），
+   所以这里不用再补 padding，只补一下上间距。
+   -------------------------------------------------------------------------- */
+.detail-box .item-contact .follow-row {
+    margin-top: 4px;
+}
+
+.detail-box .item-contact .flw-btn {
+    box-sizing: border-box;
+    height: 34px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #fff;
+    background: #00489a;
+    border: 1px solid #00489a;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+.detail-box .item-contact .flw-btn:hover {
+    background: #0060c8;
+    border-color: #0060c8;
+}
+
+.detail-box .item-contact .flw-btn-on {
+    color: #7b8ca0;
+    background: #fff;
+    border-color: #dbe5f0;
+}
+
+.detail-box .item-contact .flw-btn-on:hover {
+    color: #e53935;
+    background: #fff;
+    border-color: #f0b4b2;
+}
+
+/* --------------------------------------------------------------------------
+   16. 商品详情页卖家头像条 + 「联系卖家」按钮
+   --------------------------------------------------------------------------
+   注意 detail.css 有
+       .detail-box.stark-components .item-contact > div { overflow:hidden; padding:10px }
+   这条只作用于 div，我这两块一个是 <a>（.seller-strip）、另一个虽然包在
+   .follow-row 里但按钮本身是 <a>，所以不会被它带上 padding，这里得自己写。
+   -------------------------------------------------------------------------- */
+
+.detail-box .item-contact .seller-strip {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    background: #f4f8fd;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.detail-box .item-contact .seller-strip:hover {
+    background: #e8f1fb;
+}
+
+.detail-box .item-contact .seller-face {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    background: #fff;
+}
+
+.detail-box .item-contact .seller-name {
+    margin-left: 10px;
+    font-size: 15px;
+    color: #00489a;
+    font-weight: bold;
+}
+
+/* 「查看资料 >」推到最右边，起一个「这条能点」的提示作用 */
+.detail-box .item-contact .seller-more {
+    margin-left: auto;
+    font-size: 12px;
+    color: #8a9bb0;
+}
+
+.detail-box .item-contact .seller-strip:hover .seller-more {
+    color: #0060c8;
+}
+
+/* .flw-btn 原本是给 <button> 写的，这里「联系卖家」是 <a>（只是跳转，不改数据），
+   所以补上 a 需要的行内块和行高，否则圆角按钮会塌成一行文字那么高。 */
+.detail-box .item-contact a.flw-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    line-height: 32px;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* 和「+ 关注」并排，两个按钮之间留点空 */
+.detail-box .item-contact .follow-row form {
+    display: inline-block;
+}
+
+.detail-box .item-contact .follow-row .flw-btn-a {
+    margin-left: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   17. 消息中心的私信会话列表（/user/message?tab=chat）
+   --------------------------------------------------------------------------
+   外壳同第 13 节（.share_content 550px 窄栏）。
+   -------------------------------------------------------------------------- */
+
+#user_content .share .share_content .cv-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#user_content .share .share_content .cv-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 4px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+#user_content .share .share_content .cv-item:hover {
+    background: #f7fafd;
+}
+
+#user_content .share .share_content .cv-avatar img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 72, 154, 0.15);
+}
+
+#user_content .share .share_content .cv-main {
+    flex: 1;
+    min-width: 0; /* 不加这条，flex 子项里的长文本不会省略，会把整行撑破 */
+    margin-left: 12px;
+}
+
+#user_content .share .share_content .cv-top {
+    margin: 0 0 4px;
+}
+
+#user_content .share .share_content .cv-name {
+    font-size: 15px;
+    color: #00489a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#user_content .share .share_content .cv-name:hover {
+    color: #0060c8;
+}
+
+#user_content .share .share_content .cv-time {
+    float: right;
+    font-size: 12px;
+    color: #9aa9bb;
+}
+
+#user_content .share .share_content .cv-preview {
+    display: block;
+    font-size: 13px;
+    color: #7b8ca0;
+    text-decoration: none;
+    /* 摘要最多一行，超出用省略号 —— 超长文本由后端 abbreviate 截过一道，
+       这里再兜一道，防止有人发一长串不带空格的字符把列宽顶开 */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#user_content .share .share_content .cv-me {
+    color: #9aa9bb;
+}
+
+#user_content .share .share_content .cv-go {
+    margin-left: 10px;
+    text-align: right;
+    text-decoration: none;
+}
+
+#user_content .share .share_content .cv-badge {
+    display: inline-block;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+}
+
+#user_content .share .share_content .cv-arrow {
+    display: block;
+    margin-top: 4px;
+    font-size: 12px;
+    color: #8a9bb0;
+}
+
+#user_content .share .share_content .cv-go:hover .cv-arrow {
+    color: #0060c8;
+}
+
+/* --------------------------------------------------------------------------
+   18. 私信对话页（/user/chat/{userId}）
+   -------------------------------------------------------------------------- */
+
+#user_content .share .share_content .chat-head {
+    display: flex;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+#user_content .share .share_content .chat-avatar img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(0, 72, 154, 0.15);
+}
+
+#user_content .share .share_content .chat-who {
+    margin-left: 12px;
+}
+
+#user_content .share .share_content .chat-name {
+    font-size: 16px;
+    font-weight: bold;
+    color: #00489a;
+    text-decoration: none;
+}
+
+#user_content .share .share_content .chat-name:hover {
+    color: #0060c8;
+}
+
+#user_content .share .share_content .chat-meta {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #8a9bb0;
+}
+
+#user_content .share .share_content .chat-head-act {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+#user_content .share .share_content .chat-follows-me {
+    margin-left: 8px;
+    font-size: 12px;
+    color: #8a9bb0;
+}
+
+/* 从商品页点进来时顶部那条「正在聊：某商品」 */
+#user_content .share .share_content .chat-goods {
+    margin-top: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #f4f8fd;
+    font-size: 13px;
+}
+
+#user_content .share .share_content .chat-goods a {
+    color: #00489a;
+    text-decoration: none;
+}
+
+#user_content .share .share_content .chat-goods a:hover {
+    text-decoration: underline;
+}
+
+#user_content .share .share_content .chat-goods-tag {
+    margin-right: 8px;
+    color: #8a9bb0;
+}
+
+#user_content .share .share_content .chat-goods-price {
+    float: right;
+    color: #e53935;
+    font-weight: bold;
+}
+
+/* 消息流。固定高度 + 内部滚动，否则聊得多了整页会被拉得很长，
+   底部输入框要滚很久才能看到。 */
+#user_content .share .share_content .chat-flow {
+    height: 340px;
+    overflow-y: auto;
+    padding: 14px 4px;
+    background: #fafcfe;
+    border-radius: 6px;
+    margin-top: 12px;
+}
+
+#user_content .share .share_content .chat-row {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+}
+
+#user_content .share .share_content .chat-face {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    flex: 0 0 auto;
+}
+
+#user_content .share .share_content .chat-bubble {
+    max-width: 68%;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e6edf5;
+}
+
+#user_content .share .share_content .chat-text {
+    margin: 0;
+    font-size: 14px;
+    color: #33475b;
+    line-height: 1.6;
+    /* 用户可能发一长串不带空格的字符，强制换行免得气泡被撑出容器 */
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+#user_content .share .share_content .chat-time {
+    display: block;
+    margin-top: 4px;
+    font-size: 11px;
+    color: #a8b5c4;
+}
+
+/* 对方：头像在左，气泡紧跟其后 */
+#user_content .share .share_content .chat-theirs .chat-bubble {
+    margin-left: 8px;
+}
+
+/* 我：整行右对齐，头像在右，气泡在头像左边。
+   flex-direction: row-reverse 让 DOM 顺序保持「头像/气泡」不变就能镜像过来，
+   不用在模板里为左右两种情况各写一遍结构。 */
+#user_content .share .share_content .chat-mine {
+    flex-direction: row-reverse;
+}
+
+#user_content .share .share_content .chat-mine .chat-bubble {
+    margin-right: 8px;
+    background: #e8f1fb;
+    border-color: #d3e3f5;
+}
+
+#user_content .share .share_content .chat-form {
+    display: flex;
+    align-items: flex-end;
+    margin-top: 12px;
+}
+
+#user_content .share .share_content .chat-input {
+    flex: 1;
+    height: 72px;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    border: 1px solid #dbe5f0;
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: vertical;
+    outline: none;
+}
+
+#user_content .share .share_content .chat-input:focus {
+    border-color: #0060c8;
+}
+
+#user_content .share .share_content .chat-send {
+    margin-left: 10px;
+    height: 36px;
+    padding: 0 24px;
+    font-size: 14px;
+    color: #fff;
+    background: #00489a;
+    border: 1px solid #00489a;
+    border-radius: 18px;
+    cursor: pointer;
+}
+
+#user_content .share .share_content .chat-send:hover {
+    background: #0060c8;
+    border-color: #0060c8;
+}
+
+/* --------------------------------------------------------------------------
+   19. 用户资料页（/user/profile/{id}）
+   --------------------------------------------------------------------------
+   这一页不在用户中心那套外壳里（没有左侧栏），用的是商品页的顶部导航，
+   所以选择器不挂 #user_content 前缀。
+   -------------------------------------------------------------------------- */
+
+.pf-wrap {
+    width: 960px;
+    margin: 90px auto 40px;
+}
+
+.pf-card {
+    display: flex;
+    align-items: center;
+    padding: 24px 28px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 72, 154, 0.08);
+}
+
+.pf-avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 72, 154, 0.18);
+}
+
+.pf-info {
+    margin-left: 20px;
+    min-width: 0;
+}
+
+.pf-name {
+    margin: 0 0 8px;
+    font-size: 22px;
+    color: #00489a;
+}
+
+.pf-line {
+    margin: 4px 0;
+    font-size: 14px;
+    color: #55677d;
+}
+
+.pf-dim {
+    font-size: 13px;
+    color: #8a9bb0;
+}
+
+.pf-sep {
+    margin: 0 6px;
+    color: #c3cedb;
+}
+
+/* 右侧按钮组。margin-left:auto 把它推到卡片最右边 */
+.pf-act {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.pf-act form {
+    display: inline-block;
+}
+
+.pf-btn {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 34px;
+    line-height: 32px;
+    padding: 0 20px;
+    margin-left: 8px;
+    font-size: 14px;
+    color: #fff;
+    background: #00489a;
+    border: 1px solid #00489a;
+    border-radius: 17px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.pf-btn:hover {
+    background: #0060c8;
+    border-color: #0060c8;
+    color: #fff;
+}
+
+.pf-btn-off {
+    color: #7b8ca0;
+    background: #fff;
+    border-color: #dbe5f0;
+}
+
+.pf-btn-off:hover {
+    color: #e53935;
+    background: #fff;
+    border-color: #f0b4b2;
+}
+
+/* 「联系 TA」用暖色，和另外两个冷色的操作按钮区分开 */
+.pf-btn-main {
+    color: #fff;
+    background: #e53935;
+    border-color: #e53935;
+}
+
+.pf-btn-main:hover {
+    background: #f0524e;
+    border-color: #f0524e;
+    color: #fff;
+}
+
+.pf-title {
+    margin: 28px 0 14px;
+    padding-left: 10px;
+    font-size: 18px;
+    color: #00489a;
+    border-left: 4px solid #fac640;
+}
+
+.pf-grid {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pf-good {
+    width: 220px;
+    margin: 0 16px 16px 0;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 72, 154, 0.07);
+}
+
+/* 每行 4 个：220*4 + 16*3 = 928，容器 960 放得下 */
+.pf-good:nth-child(4n) {
+    margin-right: 0;
+}
+
+.pf-good-img {
+    display: block;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #f4f8fd;
+}
+
+.pf-good-img img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.pf-good-name {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #33475b;
+    text-decoration: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.pf-good-name:hover {
+    color: #00489a;
+}
+
+.pf-good-price {
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #e53935;
+}
+
+/* 资料页也用了 .uc-empty（第 13 节那套空状态样式），
+   但它本来挂在 #user_content 前缀下，这里不在那个容器里，得补一份。 */
+.pf-wrap .uc-empty {
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   20. 「个人设置」页的头像设置块（/user/basic）
+   -------------------------------------------------------------------------- */
+
+.basic-avatar {
+    margin-top: 24px;
+}
+
+/* user.css 里有两条给「标签 + input.in_info」那种行用的规则：
+       .changeinfo { height: 50px }
+       .changeinfo span { position: absolute; margin-left: 70px }
+   标签是脱离文档流的（靠静态位置 + margin-left 钉到行左 70px 处），
+   输入框靠自己的 margin-left:170px 落在右边，两者靠 margin 对齐、互不干扰；
+   行的固定 50px 高度也够用，因为行里只有一个输入框。
+   头像这几行不是这个结构：行里放的是 64px 的图、一排 label、以及提示文字，
+   而提示文字恰好也是 <span>，会被那条规则拽出文档流压到图上；
+   行高也超过 50px，会被下一行顶穿。
+   所以这里只把「每行第一个 span（也就是标签）」从绝对定位拉回文档流，
+   用固定 100px 宽 + 右对齐占住 70~170px 这一段，和上面几行的标签完全对齐，
+   行内其余内容自然从 170px 起排，不用再各写一遍 margin-left。 */
+.basic-avatar .changeinfo {
+    height: auto;
+    min-height: 50px;
+    /* 不写 overflow 的话，第三行里的浮动 file 输入框不会被包住，行会塌成 0 高 */
+    overflow: hidden;
+}
+
+/* 标签一律不换行：中文标签在 100px 里最多放 5 个字，写长一点会折成两行、
+   把行高撑开。宁可让它往左溢出到 margin 里，也不要折行。 */
+.basic-avatar .changeinfo > span:first-child {
+    position: static;
+    float: none;
+    display: inline-block;
+    width: 100px;
+    margin: 0 0 0 70px;
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.basic-avatar .av-current {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 6px rgba(0, 72, 154, 0.18);
+}
+
+/* 提示文字也是 span，同样要拉回文档流，否则会跟着标签一起被绝对定位 */
+.basic-avatar .av-hint {
+    position: static;
+    float: none;
+    display: inline;
+    margin: 0 0 0 10px;
+    vertical-align: middle;
+    font-size: 12px;
+    color: #9aa9bb;
+}
+
+.basic-avatar .av-picker {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 每张预设头像是一个 label（label 包 radio，点图就等于点 radio，不需要脚本）。
+   选中状态用 :has() 高亮；这个属性比较新，老浏览器上只是没有高亮，
+   不影响功能 —— radio 本身仍然是选中状态。 */
+.basic-avatar .av-opt {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+    line-height: 0;
+}
+
+.basic-avatar .av-opt input {
+    /* 单选框本身藏起来：图本身就是选项，留一个圆点在旁边很丑。
+       用 position:absolute + opacity 而不是 display:none ——
+       display:none 的 radio 在部分浏览器里仍然可被键盘聚焦但看不到焦点，
+       这样藏起来键盘还能用 Tab 选中。 */
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.basic-avatar .av-opt img {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 1px 6px rgba(0, 72, 154, 0.18);
+}
+
+.basic-avatar .av-opt:hover img {
+    box-shadow: 0 2px 10px rgba(0, 72, 154, 0.35);
+}
+
+.basic-avatar .av-opt input:checked + img {
+    border-color: #fac640;
+    box-shadow: 0 2px 10px rgba(250, 198, 64, 0.55);
+}
+
+.basic-avatar .av-opt input:focus + img {
+    border-color: #0060c8;
+}
+
+/* 文件输入框默认太窄，选完文件名会显示不全。
+   .in_info 自带的 margin-left:170px 是给「标签绝对定位」那种行用的，
+   这里标签已经在文档流里占掉了 0~170px，再加 170px 会整行右移，所以清掉；
+   float:left 也要清掉 —— 标签是行内块占了行首，浮动框会挤到下一行去。 */
+.basic-avatar input[type="file"].in_info {
+    width: 320px;
+    float: none;
+    margin-left: 0;
+    padding: 6px 8px;
+    line-height: normal;
+}
+
+/* 上传那行的说明文字太长了，跟在文件框后面会被挤到容器外，
+   单独占一行放在文件框下面。 */
+.basic-avatar .av-hint-block {
+    display: block;
+    margin: 8px 0 0 170px;
+}
+
+/* --------------------------------------------------------------------------
+   21. 顶部导航右上角的「消息」邮件图标（4 个商品页模板）
+   --------------------------------------------------------------------------
+   原来那一格里只有一个 <i ng-click="showNotificationBox()">，由 Angular 驱动，
+   但全站没有 ng-app，Angular 从未启动，所以点了没反应。现在改成 <a> 包一层
+   跳到消息中心，数字改成 Thymeleaf 渲染的 unreadMsgCount。
+
+   这里只补 <a> 自己的样式，不动 index.css / detail.css 里原有的那几条：
+   - .notification{position:relative} 是红点的定位基准，<a> 不加 position 就不会抢走它；
+   - .notification .notification-amount{position:absolute;bottom:8px;right:5px}
+     是后代选择器，隔着这层 <a> 依然命中，红点位置不变。
+   <a> 默认是行内元素，撑不满 .notification 那 60px 宽，点空白处会点不到，
+   所以给 display:block。
+   -------------------------------------------------------------------------- */
+.header.stark-components .nav1 .notification > a {
+    display: block;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   22. 登录弹框里的失败提示（4 个商品页模板）
+   --------------------------------------------------------------------------
+   原来登录失败是静默重定向回来源页，页面一闪什么都没变，用户分不清是
+   手机号没注册还是密码打错了。现在 UserController 把原因写进 session，
+   UnreadNoticeAdvice 取出来塞进模型，模板里渲染成这一行红字。
+   有提示时弹框会被 th:style 直接顶开，不然红字藏在一个 display:none 的
+   弹框里，用户还得再点一次「登录」才看得到。
+   -------------------------------------------------------------------------- */
+.login-error {
+    color: #ff3b30;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 6px 12px;
+    /* 提示可能是中文长句，别让它把弹框撑变形 */
+    word-break: break-all;
+}
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------
+   23. 分类页主题背景：每个分类一张与该分类同名的模糊实景图
+   --------------------------------------------------------------------------
+   需求：首页 / 最新发布 保持武理工校园实景底图；各分类页换成「和页面标题
+   相关」的模糊照片，比如「闲置数码」页是一张虚化的数码产品特写。
+
+   做法：分类页的 <body> 由 th:classappend 挂上 cat-bg-<分类id>，
+   这里只覆盖 background-image 的第三层（照片那层）。
+   渐变蒙版那两层跟全站底色用的是同一份，所以用 CSS 变量把照片抽出来，
+   否则 7 个分类要各抄一遍三段式渐变，改一处得改 7 处。
+
+   注意：
+   - background-size / position / repeat 是分开声明的长属性，基础 body 规则
+     里那三条（100% 100%, cover, cover）继续生效，这里不用重复写。
+   - body[class*="cat-bg-"] 与 body.cat-bg-N 特异性相同(0,1,1)，但一个只写
+     background-image、一个只写 --cat-bg，互不冲突，和书写顺序无关。
+   - 分类 id 不在 1~7 之内（例如 id=8「全部」，它下面没挂商品）时不会命中
+     任何规则，自动落回全站校园底图，不会变成空白。
+   -------------------------------------------------------------------------- */
+body[class*="cat-bg-"] {
+    background-image:
+        radial-gradient(circle at 14% 4%,
+            rgba(250, 198, 64, 0.30) 0%,
+            rgba(250, 198, 64, 0.00) 42%),
+        /* 蒙版比全站那层淡一档。全站底图是明亮的校园照，62/60/70 的不透明度
+           刚好压成"氛围"；但分类图里有不少暗调特写（如耳机、电扇），
+           用同一个浓度会直接糊成一片灰，主题完全看不出来。
+           这里降到 40/38/48，既透出画面，又靠 blur=14 保证文字可读。 */
+        linear-gradient(158deg,
+            rgba(255, 253, 246, 0.40) 0%,
+            rgba(242, 249, 255, 0.38) 48%,
+            rgba(224, 238, 255, 0.48) 100%),
+        var(--cat-bg);
+}
+
+body.cat-bg-1 { --cat-bg: url(../img/catelog_bg/digital.jpg); }
+body.cat-bg-2 { --cat-bg: url(../img/catelog_bg/ride.jpg); }
+body.cat-bg-3 { --cat-bg: url(../img/catelog_bg/commodity.jpg); }
+body.cat-bg-4 { --cat-bg: url(../img/catelog_bg/book.jpg); }
+body.cat-bg-5 { --cat-bg: url(../img/catelog_bg/makeup.jpg); }
+body.cat-bg-6 { --cat-bg: url(../img/catelog_bg/sport.jpg); }
+body.cat-bg-7 { --cat-bg: url(../img/catelog_bg/smallthing.jpg); }
+
+/* --------------------------------------------------------------------------
+   24. 左下角悬浮入口：智能导购机器人「小松鼠」
+   --------------------------------------------------------------------------
+   层级取 900：要压住页面内容，但必须低于模板里的登录弹框（9999），
+   否则登录框弹出来会被这个球盖住 —— 这个坑第 8 节的注释里记过一次。
+
+   整个图标是纯 CSS 画的，没有图片也没有 JS。机身分四层：
+     · .rf-orb      机身。150deg 斜向渐变（亮蓝 → 靛蓝 → 紫）＋左上角径向高光
+                    ＋ inset 内阴影。三件套缺一就成「圆片」而不是「球」。
+     · .rf-antenna  头顶那根天线，顶端一颗会呼吸的小灯。有没有它，决定了这东西
+                    看起来是「机器人」还是「客服按钮」—— 这一根比什么都管用。
+     · .rf-visor    深色面罩。把两只眼睛圈进一块「屏幕」里，比直接把眼睛贴在
+                    球面上更像一台智能设备，而不是一张笑脸。
+     · .rf-eye      青蓝色发光眼 + 偶尔眨一下（scaleY 压扁）。
+   配色走「蓝紫机身 + 青色发光」，是现在 AI 助手最认的一套视觉，学生也吃这个；
+   机身主色仍压在站点蓝的邻近色域里，不至于和武理工蓝的头部打架。
+   机身还挂着 3.6s 的上下浮动，让它是「浮」在那儿而不是「钉」在那儿。
+
+   位置在左下角，要避开左侧那条 190px 的固定侧栏（见本节末尾那段 media query）。
+   -------------------------------------------------------------------------- */
+.robot-entry {
+    position: fixed;
+    left: 26px;
+    bottom: 24px;
+    z-index: 900;
+}
+
+/* 整行：机身 + 右侧气泡。浮动动画挂在这一层，
+   缩放挂在 .rf-orb 上 —— 两者都在 transform 上，放同一个元素会互相覆盖。 */
+.robot-fab {
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    text-decoration: none;
+    -webkit-animation: robotFloat 3.6s ease-in-out infinite;
+    animation: robotFloat 3.6s ease-in-out infinite;
+}
+@-webkit-keyframes robotFloat {
+    0%, 100% { -webkit-transform: translateY(0); }
+    50%      { -webkit-transform: translateY(-6px); }
+}
+@keyframes robotFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+
+.rf-orb {
+    position: relative;
+    display: block;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: -webkit-linear-gradient(300deg, #7FB2FF 0%, #2F5BE8 42%, #6A2CE0 100%);
+    background: linear-gradient(150deg, #7FB2FF 0%, #2F5BE8 42%, #6A2CE0 100%);
+    box-shadow:
+        0 12px 26px rgba(47, 91, 232, 0.40),
+        0 3px 8px rgba(0, 0, 0, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.36),
+        inset 0 -8px 16px rgba(20, 12, 70, 0.42);
+    -webkit-transition: -webkit-transform .18s cubic-bezier(.2, .8, .3, 1.35), box-shadow .18s ease;
+    transition: transform .18s cubic-bezier(.2, .8, .3, 1.35), box-shadow .18s ease;
+}
+
+/* 左上角那点高光。少了它就是个扁圆片 */
+.rf-orb::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 7px;
+    width: 26px;
+    height: 18px;
+    background: -webkit-radial-gradient(ellipse at center, rgba(255,255,255,.66), rgba(255,255,255,0) 70%);
+    background: radial-gradient(ellipse at center, rgba(255,255,255,.66), rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    -webkit-transform: rotate(-22deg);
+    transform: rotate(-22deg);
+    /* 装饰元素必须让开点击，否则点到伪元素上 <a> 收不到事件 */
+    pointer-events: none;
+}
+
+/* 头顶天线 + 顶端那颗呼吸的小灯 */
+.rf-antenna {
+    position: absolute;
+    left: 50%;
+    top: -12px;
+    width: 2px;
+    height: 13px;
+    margin-left: -1px;
+    border-radius: 1px;
+    background: -webkit-linear-gradient(top, rgba(150,205,255,.18) 0%, rgba(150,205,255,.95) 100%);
+    background: linear-gradient(180deg, rgba(150,205,255,.18) 0%, rgba(150,205,255,.95) 100%);
+    pointer-events: none;
+}
+.rf-antenna::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    border-radius: 50%;
+    background: -webkit-radial-gradient(circle at 35% 35%, #FFFFFF, #6BE9FF 55%, #23B7E8);
+    background: radial-gradient(circle at 35% 35%, #FFFFFF, #6BE9FF 55%, #23B7E8);
+    box-shadow: 0 0 8px rgba(90, 230, 255, 0.95);
+    -webkit-animation: robotBeacon 2.2s ease-in-out infinite;
+    animation: robotBeacon 2.2s ease-in-out infinite;
+}
+@-webkit-keyframes robotBeacon {
+    0%, 100% { opacity: 1;   box-shadow: 0 0 8px rgba(90,230,255,.95); }
+    50%      { opacity: .42; box-shadow: 0 0 4px rgba(90,230,255,.40); }
+}
+@keyframes robotBeacon {
+    0%, 100% { opacity: 1;   box-shadow: 0 0 8px rgba(90,230,255,.95); }
+    50%      { opacity: .42; box-shadow: 0 0 4px rgba(90,230,255,.40); }
+}
+
+/* 呼吸光环 */
+.rf-glow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 0 rgba(86, 122, 255, 0.50);
+    -webkit-animation: robotPulse 3s ease-out infinite;
+    animation: robotPulse 3s ease-out infinite;
+    pointer-events: none;
+}
+@-webkit-keyframes robotPulse {
+    to { box-shadow: 0 0 0 20px rgba(86, 122, 255, 0); }
+}
+@keyframes robotPulse {
+    to { box-shadow: 0 0 0 20px rgba(86, 122, 255, 0); }
+}
+
+/* 面罩：把眼睛圈进一块深色屏幕里 */
+.rf-visor {
+    position: absolute;
+    left: 7px;
+    top: 17px;
+    width: 48px;
+    height: 26px;
+    /* 10px 而不是全圆角的 13px：全圆角时两侧的弧线会盖住眼睛外缘，
+       左眼看起来像被切掉一块。10px 让平直段落在 10~38px，
+       两只眼睛（10~19 / 29~38）正好整只都在平直区里。 */
+    border-radius: 10px;
+    background: -webkit-radial-gradient(ellipse at 50% 30%, #1B2A63 0%, #0A0F33 72%);
+    background: radial-gradient(ellipse at 50% 30%, #1B2A63 0%, #0A0F33 72%);
+    box-shadow:
+        inset 0 0 10px rgba(0, 229, 255, 0.40),
+        inset 0 0 0 1px rgba(120, 200, 255, 0.22),
+        0 1px 3px rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+}
+
+/* 两只发光眼。10px 的内缩配 48px 面罩，眼睛外缘刚好贴住平直段边界 */
+.rf-eye {
+    position: absolute;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: -webkit-radial-gradient(circle at 35% 35%, #FFFFFF, #5CEEFF 52%, #14B8E6 100%);
+    background: radial-gradient(circle at 35% 35%, #FFFFFF, #5CEEFF 52%, #14B8E6 100%);
+    box-shadow: 0 0 9px rgba(92, 238, 255, 0.95), 0 0 18px rgba(92, 238, 255, 0.45);
+    -webkit-animation: robotBlink 4.6s ease-in-out infinite;
+    animation: robotBlink 4.6s ease-in-out infinite;
+    pointer-events: none;
+}
+.rf-eye-l { left: 10px; }
+.rf-eye-r { right: 10px; }
+
+/* 眨眼：绝大多数时间保持原样，只在关键帧的一瞬间压扁 */
+@-webkit-keyframes robotBlink {
+    0%, 92%, 100% { -webkit-transform: scaleY(1); }
+    95%           { -webkit-transform: scaleY(0.12); }
+}
+@keyframes robotBlink {
+    0%, 92%, 100% { transform: scaleY(1); }
+    95%           { transform: scaleY(0.12); }
+}
+
+/* 悬停：上浮 + 微放大 + 阴影加深 + 光环加快，四件事一起做才有质感 */
+.robot-fab:hover .rf-orb {
+    -webkit-transform: translateY(-2px) scale(1.06);
+    transform: translateY(-2px) scale(1.06);
+    box-shadow:
+        0 20px 36px rgba(47, 91, 232, 0.50),
+        0 4px 10px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42),
+        inset 0 -8px 16px rgba(20, 12, 70, 0.42);
+}
+.robot-fab:hover .rf-glow {
+    -webkit-animation-duration: 1.1s;
+    animation-duration: 1.1s;
+}
+
+/* 按下压一压，配合上面那个带回弹的 cubic-bezier 手感就出来了 */
+.robot-fab:active .rf-orb {
+    -webkit-transform: translateY(0) scale(0.93);
+    transform: translateY(0) scale(0.93);
+    -webkit-transition-duration: .06s;
+    transition-duration: .06s;
+}
+
+/* 右侧气泡。隔 1.1 秒自己浮出来，鼠标一碰机身就收走 ——
+   它是「搭话」，不是常驻广告。 */
+.rf-tip {
+    position: relative;
+    display: inline-block;
+    margin-left: 12px;
+    padding: 8px 14px;
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
+    color: #22315A;
+    background: #FFFFFF;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(30, 50, 110, 0.18), 0 1px 3px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    -webkit-transform: translateX(-6px);
+    transform: translateX(-6px);
+    -webkit-animation: robotTipIn .45s ease-out 1.1s forwards;
+    animation: robotTipIn .45s ease-out 1.1s forwards;
+    pointer-events: none;
+}
+/* 左边那个小尖角，指向机身 */
+.rf-tip::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    margin-top: -5px;
+    border-style: solid;
+    border-width: 5px 6px 5px 0;
+    border-color: transparent #FFFFFF transparent transparent;
+}
+/* 关键帧要显式写出 from：不写的话动画重启时会从「未被动画影响的值」起步，
+   也就是 1 —— 鼠标移开的一瞬间气泡会闪一下再重新浮出来。
+   （hover 里必须 animation:none，否则动画的 fill:forwards 会盖住那条 opacity:0。） */
+@-webkit-keyframes robotTipIn {
+    from { opacity: 0; -webkit-transform: translateX(-6px); }
+    to   { opacity: 1; -webkit-transform: translateX(0); }
+}
+@keyframes robotTipIn {
+    from { opacity: 0; transform: translateX(-6px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+.robot-fab:hover .rf-tip {
+    opacity: 0;
+    -webkit-animation: none;
+    animation: none;
+}
+
+/* 未登录时是「登录后可用」的灰蓝版，和可用的那支区分开 */
+.robot-fab-locked .rf-orb {
+    background: -webkit-linear-gradient(300deg, #B4C2D6 0%, #8397B0 45%, #66798F 100%);
+    background: linear-gradient(150deg, #B4C2D6 0%, #8397B0 45%, #66798F 100%);
+    box-shadow:
+        0 10px 22px rgba(100, 120, 145, 0.34),
+        0 2px 6px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32),
+        inset 0 -8px 16px rgba(50, 65, 85, 0.30);
+}
+.robot-fab-locked .rf-eye {
+    background: -webkit-radial-gradient(circle at 35% 35%, #FFFFFF, #D6E1EF 55%, #A8B7C9 100%);
+    background: radial-gradient(circle at 35% 35%, #FFFFFF, #D6E1EF 55%, #A8B7C9 100%);
+    box-shadow: 0 0 6px rgba(215, 228, 245, 0.80);
+}
+.robot-fab-locked .rf-antenna::after {
+    background: -webkit-radial-gradient(circle at 35% 35%, #FFFFFF, #D6E1EF 55%, #A8B7C9 100%);
+    background: radial-gradient(circle at 35% 35%, #FFFFFF, #D6E1EF 55%, #A8B7C9 100%);
+    box-shadow: 0 0 6px rgba(215, 228, 245, 0.80);
+}
+.robot-fab-locked .rf-glow,
+.robot-fab-locked .rf-antenna::after {
+    -webkit-animation: none;
+    animation: none;
+}
+.robot-fab-locked .rf-tip {
+    color: #4A5A72;
+}
+
+/* 侧栏是 190px 宽的固定栏，高度由分类条数决定、不随屏高缩，实测底边固定在
+   y≈625（第 8 节那条老注释里量过同一个数）。屏高不足 715 时机身顶部会压到
+   侧栏底部那行「关于我们·联系我们」上，把整行让到侧栏右侧去。 */
+@media (max-height: 715px) {
+    .robot-entry { left: 205px; }
+}
+
+@media (max-width: 768px) {
+    .robot-entry { left: 14px; bottom: 14px; }
+    .rf-orb      { width: 54px; height: 54px; }
+    .rf-glow     { width: 54px; height: 54px; }
+    .rf-visor    { left: 6px; top: 15px; width: 42px; height: 23px; border-radius: 9px; }
+    .rf-eye      { top: 8px; width: 7px; height: 7px; }
+    .rf-eye-l    { left: 10px; }
+    .rf-eye-r    { right: 10px; }
+    .rf-antenna  { top: -10px; height: 11px; }
+    .rf-tip      { margin-left: 9px; padding: 6px 11px; font-size: 12px; }
+}
+
+/* 系统里开了「减少动态效果」就把动画全关掉，别硬晃 */
+@media (prefers-reduced-motion: reduce) {
+    .robot-fab,
+    .robot-fab .rf-glow,
+    .robot-fab .rf-antenna::after,
+    .robot-fab .rf-eye {
+        -webkit-animation: none;
+        animation: none;
+    }
+    /* 上面把动画关了，气泡就永远停在 opacity:0，这一条让它直接显示出来 */
+    .rf-tip {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   24.1 机器人聊天页（/robot）
+   --------------------------------------------------------------------------
+   这一页刻意不引 jQuery：user/ 目录下的页面本来就没有 jQuery 依赖，
+   goods/ 那边虽然有，但为了一个聊天页把它拖进来不划算。滚动、置灰按钮
+   这些都用末尾那段原生 IIFE 干完了。
+   -------------------------------------------------------------------------- */
+/* 机器人这一页要把内容区放宽。#user_content 本身有 948px，可 .share 默认只有
+   550px、左边还空着 100px，气泡里塞三张 148px 的商品卡片就挤成两行了。
+   848 + 50 = 898，留在 948 里面还剩点余量。
+   这几条必须挂在 .robot-share 上而不是直接改 .share —— 那个类别的页面
+   （消息中心、关注列表、我的闲置）都还在用原来的 550px。 */
+#user_content .share.robot-share {
+    width: 848px;
+    margin-left: 50px;
+}
+#user_content .share.robot-share .share_content {
+    width: 848px;
+}
+
+.robot-head {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 62px;
+    padding: 0 18px;
+    background: #00489a;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 3px 12px rgba(0, 72, 154, 0.22);
+}
+
+.robot-head h1 {
+    -webkit-flex: 1;
+    flex: 1;
+    margin: 0;
+    font-size: 19px;
+    font-weight: normal;
+    color: #fff;
+}
+
+.robot-back,
+.robot-clear {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    border-radius: 16px;
+    background: transparent;
+    font-family: inherit;
+    font-size: 13px;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-transition: background .16s ease;
+    transition: background .16s ease;
+}
+.robot-back:hover,
+.robot-clear:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+}
+.robot-clear { margin: 0; }
+
+/* 消息流。固定高度 + 内部滚动，这样输入框永远钉在下面不用跟着滚 */
+.robot-flow {
+    box-sizing: border-box;
+    height: 520px;
+    padding: 18px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 3px 12px rgba(0, 32, 80, 0.10);
+}
+
+/* 一条消息一行。用户那行靠 row-reverse 翻到右边，不用 float */
+.rb-row {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+    margin-bottom: 16px;
+}
+.rb-row-user {
+    -webkit-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+}
+
+.rb-avatar {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    margin: 0 10px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background: #00489a;
+}
+.rb-row-user .rb-avatar {
+    background: #d99a1e;
+}
+
+.rb-bubble {
+    max-width: 78%;
+    padding: 11px 14px;
+    border-radius: 10px;
+    background: #eef4fb;
+    color: #24313f;
+    font-size: 15px;
+    line-height: 1.65;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+.rb-row-user .rb-bubble {
+    background: #e6f0ff;
+}
+
+/* 机器人回复里的文字段。模型输出一律当纯文本渲染（新行靠 pre-line 保留），
+   模板里用的是 th:text 而不是 th:utext，不存在把模型吐的标签当 HTML 执行的问题 */
+.rb-text {
+    white-space: pre-line;
+}
+.rb-text + .rb-text {
+    margin-top: 8px;
+}
+
+/* 回答被截断之类的附加提示 */
+.rb-notice {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #8b98a8;
+}
+
+/* 每条消息右下角的时间。用户那条也是右对齐，因为 .rb-time 在气泡内部 */
+.rb-time {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #a3b0bf;
+    text-align: right;
+}
+
+/* 嵌入机器人气泡里的商品卡片。结构照抄 goods/searchGoods.html 的 .card，
+   让推荐结果看起来就是站内商品，而不是另一种陌生的东西 */
+.rb-cards {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.rb-card {
+    display: block;
+    width: 148px;
+    margin: 0 10px 10px 0;
+    overflow: hidden;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 32, 80, 0.14);
+    text-decoration: none;
+    -webkit-transition: -webkit-transform .16s ease, box-shadow .16s ease;
+    transition: transform .16s ease, box-shadow .16s ease;
+}
+.rb-card:hover {
+    -webkit-transform: translateY(-3px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 32, 80, 0.22);
+}
+
+.rb-card-image {
+    display: block;
+    width: 148px;
+    height: 110px;
+    overflow: hidden;
+    background: #f2f5f9;
+}
+.rb-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rb-card-price {
+    padding: 6px 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    /* 和站内 .card-content.item-price 同一个红（index.css 里的 #EF5350），
+       字号收小一点是因为这里的卡片只有 148px 宽 */
+    color: #EF5350;
+}
+.rb-card-price::before {
+    content: "￥";
+    font-size: 12px;
+}
+
+.rb-card-name {
+    padding: 2px 8px 8px;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #43536a;
+    /* 名字长的截两行，卡片高度才整齐 */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 空历史时给的示例问题 */
+.robot-empty {
+    padding: 26px 6px;
+    color: #6b7f97;
+    font-size: 15px;
+    line-height: 2;
+}
+.robot-empty p {
+    margin: 0;
+}
+.robot-empty .re-title {
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: #24313f;
+}
+
+/* 「正在思考…」那个临时气泡 */
+.rb-typing {
+    color: #8b98a8;
+}
+.rb-typing::after {
+    content: "";
+}
+
+/* 底部输入区 */
+.robot-form {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 14px 18px;
+    background: #fff;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 3px 12px rgba(0, 32, 80, 0.10);
+}
+
+.robot-input {
+    -webkit-flex: 1;
+    flex: 1;
+    box-sizing: border-box;
+    height: 44px;
+    padding: 0 14px;
+    border: 1px solid #cfdcea;
+    border-radius: 22px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #24313f;
+    outline: none;
+    -webkit-transition: border-color .16s ease, box-shadow .16s ease;
+    transition: border-color .16s ease, box-shadow .16s ease;
+}
+.robot-input:focus {
+    border-color: #00489a;
+    box-shadow: 0 0 0 3px rgba(0, 72, 154, 0.12);
+}
+
+.robot-send {
+    -webkit-flex: 0 0 auto;
+    flex: 0 0 auto;
+    height: 44px;
+    margin: 0 0 0 12px;
+    padding: 0 26px;
+    border: 0;
+    border-radius: 22px;
+    background: #00489a;
+    font-family: inherit;
+    font-size: 15px;
+    color: #fff;
+    cursor: pointer;
+    -webkit-transition: background .16s ease;
+    transition: background .16s ease;
+}
+.robot-send:hover {
+    background: #0060c8;
+}
+.robot-send:disabled {
+    background: #9db2c9;
+    cursor: default;
+}
+
+@media (max-width: 768px) {
+    .robot-flow  { height: 420px; }
+    .robot-head  { height: 54px; padding: 0 12px; }
+    .robot-head h1 { font-size: 16px; }
+    .rb-bubble   { max-width: 84%; }
+    .robot-form  { padding: 10px 12px; }
+    .robot-send  { padding: 0 18px; }
+}
+
+
+/* --------------------------------------------------------------------------
+   27. 对话页的「联系方式交换」条（**重写时新增的功能**）
+   --------------------------------------------------------------------------
+   七种状态共用这一个外壳，靠 `.chat-contact-<state>` 后缀换配色。
+   加后缀是为了让「等对方同意」「对方请求我」「已交换」在页面上
+   一眼能分出来 —— 只靠文字的话，用户得逐字读完才知道到哪一步了。
+
+   底色和边框都调得很淡（这一条是常驻的，不是弹窗），
+   只有 `reply`（轮到我处理了）是暖色，用颜色把人往那个按钮上引。
+   -------------------------------------------------------------------------- */
+
+#user_content .share .share_content .chat-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px solid #dbe6f4;
+    border-radius: 6px;
+    background: #f7fafd;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #5a6b80;
+}
+
+/* 已交换：绿的，让人放心 */
+#user_content .share .share_content .chat-contact-visible {
+    border-color: #bfe3c8;
+    background: #f3fbf5;
+}
+
+/* 对方请求我了：暖色，这一条是唯一需要用户**做决定**的状态 */
+#user_content .share .share_content .chat-contact-reply {
+    border-color: #ffd98a;
+    background: #fffaf0;
+}
+
+/* 被拒绝了：淡红。不用太重 —— 这只是「换一次不行」，还能再请求 */
+#user_content .share .share_content .chat-contact-refused {
+    border-color: #f0cfcf;
+    background: #fdf7f7;
+}
+
+#user_content .share .share_content .chat-contact .cc-text {
+    margin-right: 12px;
+}
+
+#user_content .share .share_content .chat-contact .cc-item {
+    margin-right: 16px;
+    color: #8a9bb0;
+}
+
+/* 手机号 / QQ / 微信本身。这三样是这一条存在的理由，给足对比度 */
+#user_content .share .share_content .chat-contact .cc-item b {
+    color: #22303f;
+}
+
+#user_content .share .share_content .chat-contact .cc-tag {
+    margin-right: 12px;
+    padding: 2px 9px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+#user_content .share .share_content .cc-tag-ok {
+    background: #e6f7ea;
+    color: #2e7d32;
+}
+
+#user_content .share .share_content .cc-tag-wait {
+    background: #fff4e0;
+    color: #b26a00;
+}
+
+/* 按钮一律推到这一行最右边（`margin-left:auto` 把后面的全顶过去）。
+   reply 那一支有两个按钮，第二个跟第一个之间留 8px，不要一起被推开。 */
+#user_content .share .share_content .chat-contact form:first-of-type {
+    margin-left: auto;
+}
+
+#user_content .share .share_content .chat-contact form + form {
+    margin-left: 8px;
+}
+
+#user_content .share .share_content .chat-contact .cc-btn {
+    box-sizing: border-box;
+    height: 30px;
+    padding: 0 16px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+    font-family: inherit;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+#user_content .share .share_content .chat-contact .cc-btn-main {
+    background: #00489a;
+    color: #fff;
+}
+
+#user_content .share .share_content .chat-contact .cc-btn-main:hover {
+    background: #0060c8;
+}
+
+/* 次要动作（拒绝 / 撤销 / 再请求一次）：白底描边。
+   撤销和拒绝都是「把这个状态结束掉」，不该长得像主按钮那样显眼 ——
+   撤销尤其：手滑点掉的是一次已经达成的交换。 */
+#user_content .share .share_content .chat-contact .cc-btn-quiet {
+    border-color: #c9d6e5;
+    background: #fff;
+    color: #5a6b80;
+}
+
+#user_content .share .share_content .chat-contact .cc-btn-quiet:hover {
+    border-color: #9db2c9;
+    color: #22303f;
+}
+
+
+/* --------------------------------------------------------------------------
+   28. 已下架的商品（「我的闲置」页 + 详情页）
+   --------------------------------------------------------------------------
+   下架是重写时**真正实装**的功能（原版那个按钮点下去什么都不会发生，
+   而且 state 列在查询里从来没被过滤过）。前台列表现在统一带 `state=0`
+   条件，所以下架之后商品从首页/分类/搜索里消失，「我的闲置」是唯一
+   还会显示它的地方 —— 否则用户下架完就再也找不回来了。
+   -------------------------------------------------------------------------- */
+
+/* 整个卡片压暗。用 filter 而不是逐个改子元素颜色：卡片里十几个元素
+   各有各的色，逐个改要动一整套规则，以后加新元素还得记得补。 */
+#user_content .share .share_content .story.is-off .head_img img,
+#user_content .share .share_content .story.is-off .box_content img {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    opacity: .6;
+}
+
+/* 「已下架」标签放在商品名右边，不占右上角那个角标位 ——
+   那儿已经被「已售出」占了，两个叠在一起会糊成一团。
+   下架和已售出是两件不相干的事，可以同时成立。 */
+#user_content .share .share_content .story .off-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 8px;
+    border-radius: 9px;
+    background: #eceff3;
+    font-size: 12px;
+    color: #7b8ca0;
+    vertical-align: middle;
+}
+
+/* 详情页「标记已售出 / 下架」那一行。
+   注意它**不在** `.item-contact` 里面（在它外面，见模板结构），
+   所以吃不到第 15 节写的 `.detail-box .item-contact .flw-btn` ——
+   不补这一份的话按钮是浏览器默认样式，跟前一条街的按钮完全不像一套。 */
+.detail-box .detail-sold-row {
+    margin-top: 10px;
+}
+
+.detail-box .detail-sold-row form {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.detail-box .detail-sold-row .flw-btn {
+    box-sizing: border-box;
+    height: 34px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #fff;
+    background: #00489a;
+    border: 1px solid #00489a;
+    border-radius: 17px;
+    cursor: pointer;
+}
+
+.detail-box .detail-sold-row .flw-btn:hover {
+    background: #0060c8;
+    border-color: #0060c8;
+}
+
+.detail-box .detail-sold-row .flw-btn-on {
+    color: #7b8ca0;
+    background: #fff;
+    border-color: #dbe5f0;
+}
+
+.detail-box .detail-sold-row .flw-btn-on:hover {
+    color: #e53935;
+    background: #fff;
+    border-color: #f0b4b2;
+}
+
+
+/* --------------------------------------------------------------------------
+   29. 用户中心顶栏的「返回首页」按钮
+
+   为什么要有这个按钮：点顶栏右上角那个用户名进到个人中心之后，原版
+   唯一能回商城的入口是顶栏左边那个 logo，和右边一个圆形图标
+   （`#home_header .home`，背景图还挂在作者自己的阿里云 OSS 上、
+   写的是 http）。都不是能一眼认出来的「返回」。这里补一个写明字的按钮。
+
+   位置钉在 `#home_header` 里，靠右 but 让开那个圆形图标
+   （它在 right:10px，宽 50px，也就是占住 1090~1140 那一段）：
+   按钮 right:70px，右边缘落在 1080，中间留 10px 空隙。
+
+   垂直位置：顶栏高 65px，按钮 30px，(65-30)/2 = 17.5，取 17px。
+   -------------------------------------------------------------------------- */
+
+#home_header .back-home {
+    position: absolute;
+    right: 70px;
+    top: 17px;
+    box-sizing: border-box;
+    display: block;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 16px;
+    font-size: 14px;
+    color: #00489a;
+    background: #fff;
+    border: 1px solid #c9d6e5;
+    border-radius: 15px;
+    white-space: nowrap;
+}
+
+#home_header .back-home:hover {
+    color: #fff;
+    background: #00489a;
+    border-color: #00489a;
+}
+
+
+/* --------------------------------------------------------------------------
+   30. 界面字体大小（**重写时新增的功能**）
+
+   由 templates/base.html 写在 <html data-fs="..."> 的那一个属性驱动，
+   值来自 `t_shop_user.font_size`（在「个人设置」里改，见
+   templates/user/basic.html 第三块）。取值只有 s / m / l / xl 四个，
+   见 core/constants.py: FONT_SIZES。
+
+   **为什么用 zoom 而不是改 font-size。**
+   这个站点的样式是原版照搬过来的，两千多行里字号全是写死的 px
+   （`.story .name { font-size: 16px }` 这种）。把 html 的 font-size
+   改掉对它们一点作用都没有，得逐个类去覆盖 —— 覆盖面靠人肉列清单，
+   总有漏掉的角落。zoom 是**整体缩放**：文字、图片、按钮、间距一起变，
+   不用挑，也就不会漏。
+
+   **代价（这是知情的取舍，不是没想到）。**
+   zoom 不会让浏览器重新排版得更窄，页面那套 1150px 的固定宽度
+   乘上去之后：小档 1150×0.9=1035，大档 1150×1.1=1265，
+   特大档 1150×1.2=1380。1366×768 这种小屏笔记本在「特大」下
+   会出现横向滚动条。要的就是「字更大」，页面宽出去是必然结果。
+
+   **不写 m 那一档。** 标准档 = 原样，写 `zoom: 1` 和不写完全一样，
+   写上去只会让人以为这一档做了什么特别的事。所以四条里只有三条。
+
+   改档位（比如「大」从 110% 调成 115%）只改这里一行，不用动数据库 ——
+   库里存的是短码 'l'，不是数字。
+   -------------------------------------------------------------------------- */
+
+html[data-fs="s"] body {
+    zoom: 0.9;
+}
+
+html[data-fs="l"] body {
+    zoom: 1.1;
+}
+
+html[data-fs="xl"] body {
+    zoom: 1.2;
+}
+
+
+/* --------------------------------------------------------------------------
+   31. 「个人设置」页的字体大小块（/user/basic 第三块）
+
+   结构照搬第 20 节那块头像设置：`user.css` 里给「标签 + 输入框」那种行
+   写的规则（.changeinfo 定高 50px、行内 span 全部绝对定位到左边 70px）
+   套不住这里的行，所以只把「每行第一个 span（标签）」拉回文档流、
+   用 100px 宽右对齐占住 70~170px 那一段，行内其余内容自然从 170px 起排。
+   -------------------------------------------------------------------------- */
+
+.basic-font {
+    margin-top: 24px;
+}
+
+.basic-font .changeinfo {
+    height: auto;
+    min-height: 50px;
+    overflow: hidden;
+}
+
+.basic-font .changeinfo > span:first-child {
+    position: static;
+    float: none;
+    display: inline-block;
+    width: 100px;
+    margin: 0 0 0 70px;
+    text-align: right;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.basic-font .fs-picker {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 每个档位是一个 label（label 包 radio，点方块就等于点 radio，不需要脚本）。
+   选中态用 `input:checked + .fs-box` 上色，不用 :has() —— 兄弟选择器
+   所有浏览器都认，比 :has() 兼容性好。 */
+.basic-font .fs-opt {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    cursor: pointer;
+}
+
+/* radio 本身藏起来：方块就是选项。
+   用 position:absolute + opacity:0 而不是 display:none ——
+   display:none 的 radio 在部分浏览器里仍可被 Tab 聚焦但看不见焦点提示，
+   这么藏键盘照样能用。和第 20 节藏头像 radio 是同一个理由。 */
+.basic-font .fs-opt input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.basic-font .fs-box {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 88px;
+    padding: 8px 0;
+    text-align: center;
+    line-height: 1.2;
+    background: #fff;
+    border: 2px solid #dbe5f0;
+    border-radius: 6px;
+}
+
+.basic-font .fs-box b {
+    display: block;
+    font-size: 15px;
+    font-weight: normal;
+    color: #33475b;
+}
+
+.basic-font .fs-box em {
+    display: block;
+    margin-top: 2px;
+    font-size: 11px;
+    font-style: normal;
+    color: #9aa9bb;
+}
+
+.basic-font .fs-opt:hover .fs-box {
+    border-color: #a9c2dd;
+}
+
+.basic-font .fs-opt input:checked + .fs-box {
+    background: #eef4fb;
+    border-color: #00489a;
+}
+
+.basic-font .fs-opt input:checked + .fs-box b {
+    color: #00489a;
+}
+
+.basic-font .fs-opt input:checked + .fs-box em {
+    color: #5a6b80;
+}
+
+.basic-font .fs-opt input:focus + .fs-box {
+    border-color: #0060c8;
+}
+
+/* 选了但还没点保存时的提示。下面那段小脚本会在改动后把它显示出来，
+   免得用户以为「选了就生效了」，其实还在等那个保存按钮。 */
+.basic-font .fs-hint {
+    position: static;
+    float: none;
+    display: inline;
+    margin: 0 0 0 10px;
+    font-size: 12px;
+    color: #9aa9bb;
+}
+
+.basic-font .fs-hint.is-dirty {
+    color: #e08b00;
+}

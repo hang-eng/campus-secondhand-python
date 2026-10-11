@@ -1,0 +1,1026 @@
+[2026-10-08 20:36:40,263] ERROR django.request: Internal Server Error: /\u8fd9\u4e2a\u9875\u9762\u4e0d\u5b58\u5728
+[2026-10-08 20:42:51,561] ERROR django.request: Internal Server Error: /goods/homeGoods
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 68, in home
+    return render(
+        request,
+    ...<5 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\homeGoods.html", line 15, in top-level template code
+    {% import "fragments/goodsGrid.html" as grid with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 135, in block 'body'
+    <a href="{{ url('goods_catelog', id=cid) }}" class="{{ cclass }}">
+    ^^^^^^^^^^^^^^^^^
+TypeError: reverse() got an unexpected keyword argument 'id'
+[2026-10-08 20:42:51,610] ERROR django.request: Internal Server Error: /goods/search
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 111, in search
+    return render(
+        request,
+        "goods/searchGoods.html",
+        _listing_context(query, catelog=None, active_catelog=None, search=keyword, price=price),
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\searchGoods.html", line 8, in top-level template code
+    {% import "fragments/goodsGrid.html" as grid with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 135, in block 'body'
+    <a href="{{ url('goods_catelog', id=cid) }}" class="{{ cclass }}">
+    ^^^^^^^^^^^^^^^^^
+TypeError: reverse() got an unexpected keyword argument 'id'
+[2026-10-08 20:42:51,654] ERROR django.request: Internal Server Error: /goods/catelog/1
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 93, in catelog
+    return render(
+        request,
+        "goods/catelogGoods.html",
+        _listing_context(query, catelog=catelog_obj, active_catelog=id, search=keyword, price=price),
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\catelogGoods.html", line 11, in top-level template code
+    {% import "fragments/goodsGrid.html" as grid with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 61, in block 'body'
+    {% block search_extras %}{% endblock %}
+    ^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\catelogGoods.html", line 18, in block 'search_extras'
+    <form class="price-filter" method="get" action="{{ url('goods_catelog', id=catelog.id) }}">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: reverse() got an unexpected keyword argument 'id'
+[2026-10-08 20:42:51,688] ERROR django.request: Internal Server Error: /goods/goodsId/57
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 233, in detail
+    return render(
+        request,
+    ...<23 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: goods/detailGoods.html
+[2026-10-08 20:42:51,696] WARNING django.request: Not Found: /goods/goodsId/999
+[2026-10-08 20:43:04,152] ERROR django.request: Internal Server Error: /goods/homeGoods
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 68, in home
+    return render(
+        request,
+    ...<5 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\homeGoods.html", line 15, in top-level template code
+    {% import "fragments/goodsGrid.html" as grid with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 147, in block 'body'
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\homeGoods.html", line 47, in block 'content'
+    {{ grid.cards(section.items) }}
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\goodsGrid.html", line 21, in template
+    {% for item in items %}
+    ^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'builtin_function_or_method' object is not iterable
+[2026-10-08 20:46:06,612] WARNING django.request: Not Found: /goods/goodsId/9999
+[2026-10-08 20:49:27,222] ERROR django.request: Internal Server Error: /user/login
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\cursors.py", line 335, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 581, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 857, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 1290, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 810, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\err.py", line 154, in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+pymysql.err.ProgrammingError: (1146, "Table 'squirrel_test.django_session' doesn't exist")
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\contrib\sessions\middleware.py", line 60, in process_response
+    request.session.save()
+    ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\contrib\sessions\backends\db.py", line 121, in save
+    return self.create()
+           ~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\contrib\sessions\backends\db.py", line 70, in create
+    self._session_key = self._get_new_session_key()
+                        ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\contrib\sessions\backends\base.py", line 196, in _get_new_session_key
+    if not self.exists(session_key):
+           ~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\contrib\sessions\backends\db.py", line 63, in exists
+    return self.model.objects.filter(session_key=session_key).exists()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\models\query.py", line 1298, in exists
+    return self.query.has_results(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\models\sql\query.py", line 676, in has_results
+    return compiler.has_results()
+           ~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\models\sql\compiler.py", line 1591, in has_results
+    return bool(self.execute_sql(SINGLE))
+                ~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\models\sql\compiler.py", line 1623, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\db\backends\mysql\base.py", line 76, in execute
+    return self.cursor.execute(query, args)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\cursors.py", line 170, in execute
+    result = self._query(query)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\cursors.py", line 335, in _query
+    conn.query(q)
+    ~~~~~~~~~~^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 581, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 857, in _read_query_result
+    result.read()
+    ~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 1290, in read
+    first_packet = self.connection._read_packet()
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\connections.py", line 810, in _read_packet
+    packet.raise_for_error()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\protocol.py", line 219, in raise_for_error
+    err.raise_mysql_exception(self._data)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\pymysql\err.py", line 154, in raise_mysql_exception
+    raise errorclass(errno, errval, sqlstate=sqlstate)
+django.db.utils.ProgrammingError: (1146, "Table 'squirrel_test.django_session' doesn't exist")
+[2026-10-08 20:49:54,805] WARNING django.request: Not Found: /goods/editGoodsSubmit
+[2026-10-08 20:49:54,878] ERROR django.request: Internal Server Error: /goods/editGoods/73
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 460, in edit
+    return render(
+        request,
+    ...<4 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\editGoods.html", line 16, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 53, in block 'body'
+    <a href="{{ url('chat_message') }}">
+    ^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'chat_message' not found. 'chat_message' is not a valid view function or pattern name.
+[2026-10-08 20:50:16,419] WARNING django.request: Not Found: /goods/editGoodsSubmit
+[2026-10-08 20:50:16,501] ERROR django.request: Internal Server Error: /goods/publishGoodsSubmit
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\views\decorators\http.py", line 64, in inner
+    return func(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 393, in publish_submit
+    return render(
+        request,
+        "goods/pubGoods.html",
+        {"catelogs": CATELOG_OPTIONS, "formError": error, "form": request.POST},
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\pubGoods.html", line 15, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 53, in block 'body'
+    <a href="{{ url('chat_message') }}">
+    ^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'chat_message' not found. 'chat_message' is not a valid view function or pattern name.
+[2026-10-08 20:50:22,735] WARNING django.request: Not Found: /goods/editGoodsSubmit
+[2026-10-08 20:59:48,313] ERROR django.request: Internal Server Error: /user/message
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\chat\views.py", line 57, in message
+    return render(
+        request,
+    ...<7 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\message.html", line 15, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,367] ERROR django.request: Internal Server Error: /user/message
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\chat\views.py", line 57, in message
+    return render(
+        request,
+    ...<7 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\message.html", line 15, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,424] ERROR django.request: Internal Server Error: /user/chat/10
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\chat\views.py", line 130, in chat
+    return render(
+        request,
+    ...<13 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\chat.html", line 12, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,512] ERROR django.request: Internal Server Error: /user/profile/11
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\chat\views.py", line 173, in profile
+    return render(
+        request,
+    ...<12 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\profile.html", line 22, in top-level template code
+    {% import "fragments/soldBadge.html" as sold with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,561] ERROR django.request: Internal Server Error: /user/profile/10
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\chat\views.py", line 173, in profile
+    return render(
+        request,
+    ...<12 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\profile.html", line 22, in top-level template code
+    {% import "fragments/soldBadge.html" as sold with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_shop.html", line 15, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,606] ERROR django.request: Internal Server Error: /user/home
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\accounts\views.py", line 155, in home
+    return render(request, "user/home.html")
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\home.html", line 11, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,652] ERROR django.request: Internal Server Error: /user/basic
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\accounts\views.py", line 161, in basic
+    return render(
+        request,
+    ...<3 lines>...
+        {"presets": PRESET_AVATARS},
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\basic.html", line 14, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,710] ERROR django.request: Internal Server Error: /user/follow
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\accounts\views.py", line 287, in follow_list
+    return render(
+        request,
+    ...<10 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\follow.html", line 11, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,776] ERROR django.request: Internal Server Error: /user/allGoods
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\core\decorators.py", line 28, in wrapper
+    return view(request, *args, **kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\accounts\views.py", line 255, in all_goods
+    return render(
+        request,
+    ...<8 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\user\goods.html", line 18, in top-level template code
+    {% import "fragments/soldBadge.html" as sold with context %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 20:59:48,824] ERROR django.request: Internal Server Error: /goods/publishGoods
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 384, in publish
+    return render(request, "goods/pubGoods.html", {"catelogs": CATELOG_OPTIONS})
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\pubGoods.html", line 15, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 76, in block 'body'
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\pubGoods.html", line 53, in block 'content'
+    value="{{ form.name|default('', true) }}" />
+    ^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'form' is undefined
+[2026-10-08 20:59:48,876] ERROR django.request: Internal Server Error: /goods/editGoods/57
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 470, in edit
+    return render(
+        request,
+    ...<4 lines>...
+        },
+    )
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\editGoods.html", line 16, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in top-level template code
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 32, in block 'robot'
+    {% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\fragments\robot.html", line 24, in top-level template code
+    <a href="{{ url('robot_page') }}" class="robot-fab"
+    ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\config\jinja2.py", line 29, in url
+    return reverse(name, args=args, kwargs=kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'robot_page' not found. 'robot_page' is not a valid view function or pattern name.
+[2026-10-08 21:00:21,106] ERROR django.request: Internal Server Error: /goods/publishGoods
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\goods\views.py", line 384, in publish
+    return render(request, "goods/pubGoods.html", {"catelogs": CATELOG_OPTIONS})
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\template\backends\jinja2.py", line 74, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 1295, in render
+    self.environment.handle_exception()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\pubGoods.html", line 15, in top-level template code
+    {% extends "base_user.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 11, in top-level template code
+    {% extends "base.html" %}
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base.html", line 19, in top-level template code
+    {% block body %}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\base_user.html", line 76, in block 'body'
+    {% block content %}{% endblock %}
+    ^^^^^^^^^^^^^
+  File "C:\Users\17360\Desktop\软件工程\campus-secondhand-python\templates\goods\pubGoods.html", line 53, in block 'content'
+    value="{{ form.name|default('', true) }}" />
+    ^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\jinja2\environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'form' is undefined
+[2026-10-08 21:04:13,742] WARNING django.request: Not Found: /img/photo.jpg
+[2026-10-08 21:04:13,747] WARNING django.request: Not Found: /static/img/photo.jpg
+[2026-10-08 21:04:13,751] WARNING django.request: Not Found: /upload/
+[2026-10-08 21:04:13,756] WARNING django.request: Not Found: /static/css/campus.css
+[2026-10-08 21:06:43,497] INFO robot.views: 上一个提问还没答完，忽略这次重复提交, userId=11
+[2026-10-08 21:06:43,596] ERROR django.security.SuspiciousFileOperation: The joined path (C:\Users\17360\Desktop\软件工程\campus-secondhand-python\static\settings.py) is located outside of the base path component (C:\Users\17360\Desktop\软件工程\campus-secondhand-python\static\img)
+Traceback (most recent call last):
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\views\static.py", line 45, in serve
+    fullpath = Path(safe_join(document_root, path))
+                    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\17360\miniconda3\envs\campus2hand\Lib\site-packages\django\utils\_os.py", line 87, in safe_join
+    raise SuspiciousFileOperation(
+    ...<2 lines>...
+    )
+django.core.exceptions.SuspiciousFileOperation: The joined path (C:\Users\17360\Desktop\软件工程\campus-secondhand-python\static\settings.py) is located outside of the base path component (C:\Users\17360\Desktop\软件工程\campus-secondhand-python\static\img)
+[2026-10-08 21:08:11,225] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:21:04,008] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:21:04,010] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:21:04,119] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:21:04,167] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:21:04,193] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:21:04,328] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:21:04,419] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:22:10,302] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:22:10,304] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:22:10,402] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:22:10,424] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:22:10,445] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:22:10,520] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:22:10,605] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:24:22,212] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:24:22,215] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:24:22,367] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:24:22,393] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:24:22,416] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:24:22,512] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:24:22,573] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:33:19,105] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:33:19,175] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:33:19,446] WARNING django.request: Method Not Allowed (GET): /goods/state/57
+[2026-10-08 21:33:19,612] WARNING django.request: Not Found: /goods/goodsId/57
+[2026-10-08 21:33:19,900] WARNING django.request: Method Not Allowed (GET): /goods/state/57
+[2026-10-08 21:33:20,092] WARNING django.request: Method Not Allowed (GET): /goods/state/57
+[2026-10-08 21:33:20,098] WARNING django.request: Method Not Allowed (GET): /goods/state/57
+[2026-10-08 21:33:20,210] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:33:20,355] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:33:20,478] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:20,970] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:21,105] WARNING django.request: Method Not Allowed (GET): /user/contact/agree/10
+[2026-10-08 21:33:21,387] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:33:21,439] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:21,524] WARNING django.request: Method Not Allowed (GET): /user/contact/revoke/11
+[2026-10-08 21:33:21,652] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:21,713] WARNING django.request: Method Not Allowed (GET): /user/contact/refuse/10
+[2026-10-08 21:33:21,776] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:21,779] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:33:21,978] WARNING django.request: Method Not Allowed (GET): /user/contact/agree/11
+[2026-10-08 21:33:22,039] WARNING django.request: Method Not Allowed (GET): /user/contact/revoke/11
+[2026-10-08 21:34:32,144] WARNING django.request: Not Found: /goods/goodsId/57
+[2026-10-08 21:34:33,947] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:34:33,949] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:34:42,774] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:34:42,778] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:34:42,884] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:34:42,934] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:34:42,979] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:34:43,121] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:34:43,228] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:36:46,590] WARNING django.request: Not Found: /favicon.ico
+[2026-10-08 21:50:26,287] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 21:50:26,289] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 21:50:38,314] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 21:50:38,316] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 21:50:43,025] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:50:43,028] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:50:43,143] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:50:43,187] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:50:43,237] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:50:43,304] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:50:43,412] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:50:45,888] WARNING django.request: Not Found: /goods/goodsId/57
+[2026-10-08 21:50:48,028] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:50:48,031] WARNING django.request: Method Not Allowed (GET): /user/contact/request/11
+[2026-10-08 21:51:35,957] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:51:35,962] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:51:36,119] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:51:36,164] WARNING django.request: Not Found: /manage/user/list
+[2026-10-08 21:51:36,208] WARNING django.request: Not Found: /manage/goods/list
+[2026-10-08 21:51:36,304] WARNING django.request: Method Not Allowed (GET): /user/login
+[2026-10-08 21:51:36,385] WARNING django.security.csrf: Forbidden (CSRF token missing.): /user/api/login
+[2026-10-08 21:57:02,980] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 21:57:02,982] WARNING django.request: Method Not Allowed (GET): /user/fontSize
+[2026-10-08 22:12:19,533] WARNING django.request: Not Found: /favicon.ico
+[2026-10-08 22:19:07,937] WARNING django.request: Not Found: /favicon.ico
+[2026-10-08 22:19:43,697] WARNING django.request: Not Found: /favicon.ico
+[2026-10-11 21:36:49,194] WARNING django.request: Not Found: /user/followAdd/999998

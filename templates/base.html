@@ -1,0 +1,44 @@
+{#
+    最外层外壳。只放所有页面共有的东西：文档结构、标题、机器人悬浮入口。
+
+    原版 20 个页面各写一份完整 <head>，没有任何 extends/layout
+    （项目没引 thymeleaf-layout-dialect）。这里抽出来，
+    重复的顶栏和登录弹层从 20 份降到 1 份。
+
+    具体页面用 {% extends %} 继承 base_shop.html（商城页）
+    或 base_user.html（个人中心页），不要直接继承这个。
+#}
+<!DOCTYPE html>
+{#
+    data-fs 就是「界面字体大小」这个设置（s / m / l / xl，见 core/constants.py）。
+
+    只写这一个属性，缩放规则全部由 campus.css 最后一节按属性值匹配 ——
+    以后想调档位、加档位，改 CSS 就行，模板一行都不用动。
+
+    未登录时上下文处理器给的是标准档 'm'，而 campus.css 里**没有** m 这一档
+    的规则（标准档 = 原样不缩放，写一条 zoom:1 也是白写），
+    所以游客看到的永远是这个站点本来的大小。
+#}
+<html lang="zh-CN" data-fs="{{ fontSize }}">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}武汉理工大学二手交易平台{% endblock %}</title>
+    {% block head %}{% endblock %}
+</head>
+<body{% block body_attr %}{% endblock %}>
+{% block body %}{% endblock %}
+
+{#
+    页面自己的脚本。放在这里是因为脚本要等 DOM 解析完才能跑，
+    而且各自的依赖（jQuery / bootstrap / fileinput）由页面在 head 块里自己引。
+#}
+{% block scripts %}{% endblock %}
+
+{#
+    右下角悬浮入口：智能导购机器人。
+    未登录时点它会弹登录框（那一页没有弹框的话退回首页登录）。
+    登录框只存在于商城页外壳里，所以片段自带探测逻辑。
+#}
+{% block robot %}{% include "fragments/robot.html" %}{% endblock %}
+</body>
+</html>
